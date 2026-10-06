@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CuddleMe</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ctext y=%2752%27 font-size=%2752%27%3E%F0%9F%A7%B8%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>:root{--rosa:#F7A8B8;--cacao:#5A3A31;--cielo:#8EC5E8;--bruma:#FFF3F6;--peluche:#F7A8B8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bruma);color:var(--cacao);font:1.0625rem/1.65 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:"Baloo 2",Nunito,system-ui,sans-serif;line-height:1.1}
+h1{font-size:clamp(2.8rem,8vw,4.8rem);margin:0}h2{font-size:1.8rem;margin:2.5rem 0 .75rem}h3{font-size:1.25rem}
+a{color:var(--cacao);text-decoration-color:var(--rosa);text-decoration-thickness:3px;text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--cielo);outline-offset:2px}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem 1rem}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 2rem;padding:.7rem 1.25rem;background:#fff;border-bottom:4px solid var(--rosa)}
+.brand{display:flex;align-items:center;gap:.6rem;font:700 1.5rem "Baloo 2",sans-serif;text-decoration:none}
+nav{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem}
+nav a{text-decoration:none;padding:.25rem 0;border-bottom:3px solid transparent}
+nav a:hover,nav a[aria-current]{border-bottom-color:var(--rosa)}
+.hero{background:var(--rosa);padding:2.5rem 0}
+.hero-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));gap:2rem 3rem;align-items:start}
+.lead{font-size:1.3rem;max-width:34rem}.hero .lead{margin:.5rem 0 1.25rem;font-weight:700}
+.f{display:block;font-weight:800;margin:.8rem 0 .2rem}
+.hero input[type=text],.hero select{width:100%;max-width:22rem;font:1rem Nunito,sans-serif;padding:.5rem .7rem;border:3px solid var(--cacao);background:#fff;color:var(--cacao)}
+.cols{display:flex;gap:.6rem;flex-wrap:wrap}
+.cols label{cursor:pointer}.cols input{position:absolute;opacity:0}
+.cols span{display:block;width:2.6rem;height:2.6rem;border-radius:50%;border:3px solid var(--cacao)}
+.cols input:checked+span{outline:4px solid var(--cielo);outline-offset:2px}
+.cols input:focus-visible+span{outline:4px solid var(--cacao);outline-offset:2px}
+.stage{background:var(--bruma);border:4px solid var(--cacao);padding:1rem;text-align:center;max-width:22rem;margin:0 auto}
+.stage svg{width:100%;max-width:15rem;height:auto}
+.stage .hola{font:700 1.5rem "Baloo 2",sans-serif;margin:0}
+.nota{background:#fff;border:3px dashed var(--cielo);padding:.6rem .8rem;margin:.75rem 0 0;min-height:3rem}
+.pl{fill:var(--peluche);stroke:var(--cacao);stroke-width:3;stroke-linejoin:round}
+.facts{display:grid;grid-template-columns:11rem 1fr;gap:.75rem 1.5rem}.facts dt{font-weight:800}.facts dd{margin:0}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0}.opts li{background:#fff;border:3px solid var(--rosa);padding:.3rem .8rem;font-weight:700}
+.sw{list-style:none;padding:0}.sw li{display:flex;gap:1rem;margin:0 0 1rem}.sw p{margin:.1rem 0 0}
+.chip{flex:none;width:3.5rem;height:3.5rem;border:3px solid var(--cacao);border-radius:50%}
+code{font:.92em ui-monospace,Consolas,monospace;background:#fff;padding:.05em .3em}
+.logo-row{display:flex;flex-wrap:wrap;gap:1.5rem}
+.logo-row svg{background:#fff;border:3px solid var(--cacao);padding:1rem}.logo-row svg.dk{background:var(--cacao)}.logo-row svg.pk{background:var(--rosa)}
+footer{max-width:62rem;margin:2rem auto 0;padding:1.25rem;border-top:1px solid #ecc9d2;font-size:.95rem}
+@media (max-width:40rem){.facts{grid-template-columns:1fr}.facts dd{margin-bottom:.5rem}}
+h1+.lead{margin-top:.5rem}.page h1{margin-top:1.5rem}
+pre{background:var(--cacao);color:#fff;padding:1rem;overflow-x:auto;border-left:6px solid var(--rosa);line-height:1.5;border-radius:0 12px 12px 0}
+pre code{background:none;padding:0;color:inherit}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:#fff;margin:1rem 0}
+th,td{text-align:left;padding:.6rem .8rem;border:2px solid #f0c9d2;vertical-align:top}
+th{background:var(--rosa)}
+.demo{background:#fff;border:3px solid var(--cacao);padding:1rem;margin:1rem 0;display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1rem}
+.btn{font:700 1.05rem "Baloo 2",sans-serif;background:var(--rosa);color:var(--cacao);border:3px solid var(--cacao);padding:.5rem 1.2rem;cursor:pointer;border-radius:999px;transition:background .2s}
+.btn:hover{background:var(--cielo)}
+.bib{margin-top:2.5rem;border-top:3px solid var(--rosa)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:0 1.5rem}
+.box{background:#fff;border:3px solid var(--cielo);padding:1rem;margin:.5rem 0;flex-basis:100%}.box.alt{border-color:var(--rosa)}
+#caja{display:none}
+textarea{display:block;width:100%;font:.95rem ui-monospace,Consolas,monospace;margin:.5rem 0;padding:.6rem;border:3px solid var(--cacao)}
+.anat{font:700 2rem "Baloo 2",sans-serif;margin:1rem 0}.anat .p{padding:.1rem .5rem;border-radius:10px}
+.sub{background:var(--cielo)}.dom{background:var(--cacao);color:#fff}.tld{background:var(--rosa)}
+.flow{list-style:none;counter-reset:s;padding:0}
+.flow li{counter-increment:s;position:relative;background:#fff;border-left:6px solid var(--rosa);padding:.7rem 1rem .7rem 3rem;margin:0 0 1.1rem}
+.flow li::before{content:counter(s);position:absolute;left:.8rem;font:700 1.2rem "Baloo 2",sans-serif}
+.flow li:not(:last-child)::after{content:"";position:absolute;left:1.05rem;bottom:-1rem;border:.4rem solid transparent;border-top-color:var(--rosa)}
+.q{background:#fff;border:3px solid var(--cacao);margin:0 0 1.25rem;padding:1rem 1.25rem}
+.q legend{font:700 1.15rem "Baloo 2",sans-serif;padding:0 .4rem}
+.q label{display:block;padding:.45rem .7rem;margin:.25rem 0;border:3px solid transparent;border-radius:12px;cursor:pointer}
+.q label:hover{border-color:var(--rosa)}
+.q .right{background:#DDF1E4;border-color:#3E8E5A}.q .wrong{background:#FBE0E0;border-color:#B3261E}
+.fb{margin:.6rem 0 0;font-weight:700}
+.result{background:var(--cacao);color:#fff;padding:1.25rem;font:700 1.4rem "Baloo 2",sans-serif;margin:1.5rem 0}
+
+.g{border:0;padding:0;margin:.9rem 0}.g legend{font-weight:800;padding:0;margin-bottom:.3rem}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}.chips label{position:relative;cursor:pointer}
+.chips input{position:absolute;opacity:0}
+.chips .t{display:block;padding:.3rem .85rem;background:#fff;border:3px solid var(--cacao);border-radius:999px;font-weight:700}
+.chips input:checked+.t{background:var(--cacao);color:#fff}
+.chips input:focus-visible+.t,.chips input:focus-visible+.cs{outline:4px solid var(--cielo);outline-offset:2px}
+.cs{display:block;width:2.6rem;height:2.6rem;border-radius:50%;border:3px solid var(--cacao)}
+.chips input:checked+.cs{outline:4px solid var(--cacao);outline-offset:2px}
+.ver{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.hero .btn{background:#fff}.hero .btn:hover{background:var(--cielo)}
+.stage{position:sticky;top:1rem}
+@media (max-width:48rem){.stage{position:static;order:-1}}
+.vista{display:none}.vista.on{display:block}
+html{color-scheme:light}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+</style>
+</head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="logo" viewBox="0 0 64 64">
+<circle cx="17" cy="19" r="9" fill="#F7A8B8" stroke="#5A3A31" stroke-width="2.5"/><circle cx="17" cy="19" r="4.2" fill="#8EC5E8"/>
+<circle cx="47" cy="19" r="9" fill="#F7A8B8" stroke="#5A3A31" stroke-width="2.5"/><circle cx="47" cy="19" r="4.2" fill="#8EC5E8"/>
+<circle cx="32" cy="36" r="23" fill="#F7A8B8" stroke="#5A3A31" stroke-width="2.5"/>
+<ellipse cx="32" cy="45" rx="10.5" ry="7.5" fill="#FFF3F6"/>
+<circle cx="21" cy="42" r="3.2" fill="#F28FA6" opacity=".7"/><circle cx="43" cy="42" r="3.2" fill="#F28FA6" opacity=".7"/>
+<circle cx="23.5" cy="32" r="2.5" fill="#5A3A31"/><circle cx="40.5" cy="32" r="2.5" fill="#5A3A31"/>
+<ellipse cx="32" cy="41.5" rx="3.3" ry="2.4" fill="#5A3A31"/>
+<path d="M32 44v3M32 47q-3 2.6-6 0M32 47q3 2.6 6 0" fill="none" stroke="#5A3A31" stroke-width="1.8" stroke-linecap="round"/>
+</symbol></svg>
+<header class="top"><a class="brand" href="#inicio"><svg width="40" height="40" aria-hidden="true"><use href="#logo"/></svg><span>CuddleMe</span></a>
+<nav aria-label="Principal"><a href="#inicio">Inicio</a><a href="#javascript">JavaScript</a><a href="#jquery">jQuery</a><a href="#json">JSON</a><a href="#hosting">Hosting y Dominios</a><a href="#cuestionario">Cuestionario Web</a></nav></header>
+<main><section class="vista" id="inicio">
+<section class="hero"><div class="wrap hero-in">
+<div><h1>CuddleMe</h1>
+<p class="lead">Un abrazo que puedes personalizar. Empieza con un peluche liso y hazlo tuyo.</p>
+<div id="ctrl"></div>
+<label class="f" for="nombre">Nombre</label><input id="nombre" type="text" placeholder="Osito" maxlength="16">
+<label class="f" for="msg">Mensaje especial</label><input id="msg" type="text" placeholder="Feliz cumpleaños, te quiero mucho" maxlength="60">
+<p><button id="reset" class="btn" type="button">Empezar de nuevo</button></p></div>
+<div class="stage" aria-live="polite"><div id="escena"></div><p class="hola" id="hola"></p><p class="nota" id="nota"></p></div>
+</div></section>
+<div class="wrap">
+<section><h2>El producto</h2>
+<dl class="facts"><dt>Nombre comercial</dt><dd>CuddleMe</dd>
+<dt>Descripción</dt><dd>CuddleMe crea peluches suaves hechos a pedido. Cada cliente diseña el suyo en la página: elige el tipo de oso (clásico, panda, polar o dorado), el color, las orejas, las patitas, los accesorios, la ropita, el nombre y un mensaje especial que llega en una tarjeta con el peluche. Los ojos son bordados para que sean seguros para niños pequeños, y cada pieza se prepara con cariño antes de enviarse.</dd>
+<dt>Se personaliza con</dt><dd><ul class="opts"><li>Tipo de oso</li><li>Color</li><li>Orejas</li><li>Patitas</li><li>Accesorios</li><li>Ropita</li><li>Nombre y mensaje</li></ul></dd>
+<dt>Público objetivo</dt><dd>Familiares y amigos que buscan un regalo con significado: padres y abuelos de niños de 0 a 10 años, y también jóvenes y adultos que quieren sorprender a su pareja o a un amigo en cumpleaños, aniversarios, graduaciones o San Valentín.</dd>
+<dt>Propuesta de valor</dt><dd>Un peluche que es único porque lo diseñas tú. No regalas un objeto cualquiera: regalas un compañero con nombre, estilo y un mensaje propio, que se vuelve un recuerdo.</dd>
+<dt>Frase de marca</dt><dd>“Un abrazo que puedes personalizar.”</dd></dl></section>
+<section><h2>Logotipo</h2>
+<p>El logo es la cara de un osito de peluche con mejillas sonrojadas y orejas de dos colores. Usa formas redondas y sin esquinas para transmitir suavidad y ternura, justo lo que se siente al abrazar un peluche. Los detalles azules dentro de las orejas hacen que se vea distinto de un osito genérico y se ve bien sobre fondos claros, rosas y oscuros.</p>
+<div class="logo-row"><svg width="120" height="120" aria-label="Logotipo sobre fondo claro" role="img"><use href="#logo"/></svg><svg class="pk" width="120" height="120" aria-label="Logotipo sobre fondo rosa" role="img"><use href="#logo"/></svg><svg class="dk" width="120" height="120" aria-label="Logotipo sobre fondo oscuro" role="img"><use href="#logo"/></svg></div></section>
+<section><h2>Paleta de colores</h2>
+<ul class="sw">
+<li><span class="chip" style="background:#F7A8B8"></span><div><strong>Rosa algodón</strong> <code>#F7A8B8</code><p>Representa ternura, cariño y dulzura. Es el color principal de la marca y evoca el afecto de un abrazo.</p></div></li>
+<li><span class="chip" style="background:#5A3A31"></span><div><strong>Café cacao</strong> <code>#5A3A31</code><p>Transmite calidez, cercanía y confianza, y recuerda al pelaje de un osito. Se usa en textos y contornos porque se lee bien sobre colores claros.</p></div></li>
+<li><span class="chip" style="background:#8EC5E8"></span><div><strong>Azul cielo</strong> <code>#8EC5E8</code><p>Se asocia con calma, seguridad e infancia. Equilibra la dulzura del rosa y da un acento fresco y diferente.</p></div></li>
+<li><span class="chip" style="background:#FFF3F6"></span><div><strong>Blanco rosado</strong> <code>#FFF3F6</code><p>Fondo muy suave que da sensación de pureza y limpieza, y deja respirar el contenido.</p></div></li></ul></section>
+</div></section><section class="vista page" id="javascript"><div class="wrap">
+<h1>JavaScript (JS vanilla)</h1>
+<p class="lead">JavaScript es el lenguaje de programación de los navegadores. Se usa en el desarrollo web para que una página reaccione a lo que hace la persona: clics, teclas, formularios y datos que llegan de un servidor. "Vanilla" significa JavaScript puro, sin librerías. En CuddleMe, por ejemplo, es lo que hace que el peluche de la página de inicio cambie de color mientras eliges.</p>
+
+<h2>HTML, CSS y JS: tres capas</h2>
+<p>Una página web se construye con tres lenguajes que se complementan. Piensa en un peluche: el HTML es el cuerpo, el CSS es el color y la ropita, y el JavaScript es lo que lo hace "hablar" cuando lo abrazas.</p>
+<div class="scroll"><table><thead><tr><th>Lenguaje</th><th>Papel</th><th>Ejemplo en CuddleMe</th></tr></thead><tbody>
+<tr><td>HTML</td><td>Estructura: qué contenido hay</td><td>El título, los campos de nombre y mensaje, la imagen del peluche</td></tr>
+<tr><td>CSS</td><td>Estilo: cómo se ve</td><td>El rosa de la marca, la tipografía redondeada, los espacios</td></tr>
+<tr><td>JS</td><td>Comportamiento: qué hace</td><td>El peluche cambia de color o de accesorio al elegir una opción</td></tr></tbody></table></div>
+
+<h2>Conceptos básicos</h2>
+<ul>
+<li><strong>Variables:</strong> guardan datos para usarlos después. Se declaran con <code>let</code> (el valor puede cambiar) o <code>const</code> (no se vuelve a asignar).</li>
+<li><strong>Funciones:</strong> bloques de código con nombre que se ejecutan cuando se necesitan.</li>
+<li><strong>Eventos:</strong> cosas que ocurren en la página, como <code>click</code> (hacer clic) o <code>mouseover</code> (pasar el cursor, también llamado hover). Con <code>addEventListener</code> se conecta una función a un evento.</li></ul>
+
+<h2>Ejemplo práctico</h2>
+<p>El siguiente código usa una variable, una función y dos eventos. Pruébalo con el botón: haz clic para dar abrazos y pasa el cursor por encima para ver cómo cambia el color.</p>
+<pre><code>const boton = document.getElementById('btn-abrazo');
+const salida = document.getElementById('salida-abrazo');
+let abrazos = 0;                      // variable
+
+function darAbrazo() {                // función
+  abrazos = abrazos + 1;
+  salida.textContent = 'Abrazos: ' + abrazos;
+}
+
+boton.addEventListener('click', darAbrazo);                                   // evento click
+boton.addEventListener('mouseover', () =&gt; boton.style.background = '#8EC5E8'); // evento hover
+boton.addEventListener('mouseout',  () =&gt; boton.style.background = '');</code></pre>
+<div class="demo"><button id="btn-abrazo" class="btn">Dar un abrazo</button> <span id="salida-abrazo" aria-live="polite">Abrazos: 0</span></div>
+
+<h3>Cómo se lee, paso a paso</h3>
+<ol>
+<li>Con <code>getElementById</code> se buscan en el HTML el botón y el texto donde se mostrará el resultado.</li>
+<li>La variable <code>abrazos</code> empieza en 0.</li>
+<li>La función <code>darAbrazo</code> suma 1 a la variable y actualiza el texto en pantalla.</li>
+<li>Los eventos conectan el botón con las funciones: el clic llama a <code>darAbrazo</code> y el cursor cambia el color del botón.</li></ol>
+
+<section class="bib"><h2>Recursos y bibliografía</h2><ul>
+<li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript">MDN Web Docs: JavaScript</a></li>
+<li><a href="https://developer.mozilla.org/es/docs/Web/Events">MDN Web Docs: Eventos</a></li>
+<li><a href="https://www.w3schools.com/js/">W3Schools: JavaScript Tutorial</a></li></ul></section>
+</div></section><section class="vista page" id="jquery"><div class="wrap"><h1>jQuery</h1>
+<p class="lead">jQuery es una librería de JavaScript lanzada en 2006. Nació porque los navegadores de esa época interpretaban el JavaScript de formas distintas, y escribir código que funcionara en todos era difícil. jQuery ofrecía una manera corta y uniforme de hacerlo, con el lema de escribir menos y hacer más.</p>
+<h2>Sintaxis básica</h2>
+<p>El símbolo <code>$</code> es la función principal de jQuery. El patrón siempre es el mismo: seleccionar un elemento y aplicarle una acción.</p>
+<pre><code>$(&#x27;selector&#x27;).accion();
+
+$(&#x27;#mensaje&#x27;).text(&#x27;Te quiero mucho&#x27;);   // selecciona por id y cambia el texto
+$(&#x27;.tarjeta&#x27;).hide();                   // selecciona por clase y oculta</code></pre>
+<p>Para usarla hay que cargar el archivo de jQuery antes de tu código, por ejemplo desde un CDN:</p>
+<pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h2>Ventajas y desventajas frente a JavaScript moderno</h2>
+<div class="two"><div><h3>Ventajas</h3><ul><li>Sintaxis corta y fácil de leer.</li><li>Efectos y animaciones listos para usar.</li><li>Hay mucho código y plugins existentes, por eso aún aparece en proyectos antiguos.</li></ul></div>
+<div><h3>Desventajas</h3><ul><li>Es una descarga extra que hace la página más pesada.</li><li>Casi todo lo que resolvía ya existe en JavaScript moderno (<code>querySelector</code>, <code>classList</code>, <code>fetch</code>).</li><li>Los frameworks actuales usan otro enfoque y no dependen de jQuery.</li></ul></div></div>
+<h2>Comparación: JS vanilla y jQuery</h2>
+<p>La misma tarea escrita de las dos formas, lado a lado:</p>
+<div class="scroll"><table><thead><tr><th>Tarea</th><th>JS vanilla</th><th>jQuery</th></tr></thead><tbody><tr><td>Seleccionar un elemento</td><td><code>const t = document.querySelector(&#x27;#nombre-peluche&#x27;);</code></td><td><code>const t = $(&#x27;#nombre-peluche&#x27;);</code></td></tr><tr><td>Escuchar un clic</td><td><code>btn.addEventListener(&#x27;click&#x27;, f);</code></td><td><code>$(&#x27;#btn&#x27;).on(&#x27;click&#x27;, f);</code></td></tr><tr><td>Ocultar un elemento</td><td><code>caja.style.display = &#x27;none&#x27;;</code></td><td><code>$(&#x27;#caja&#x27;).hide();</code></td></tr><tr><td>Agregar una clase</td><td><code>caja.classList.add(&#x27;destacado&#x27;);</code></td><td><code>$(&#x27;#caja&#x27;).addClass(&#x27;destacado&#x27;);</code></td></tr><tr><td>Cambiar el texto</td><td><code>t.textContent = &#x27;Osito&#x27;;</code></td><td><code>$(&#x27;#nombre-peluche&#x27;).text(&#x27;Osito&#x27;);</code></td></tr></tbody></table></div>
+<h2>Efectos típicos</h2>
+<p>Dos efectos clásicos de jQuery: <code>fadeIn</code> (aparecer poco a poco) y <code>slideToggle</code> (abrir y cerrar deslizando). Pruébalos:</p>
+<pre><code>$(&#x27;#btn-fade&#x27;).on(&#x27;click&#x27;, function () {
+  $(&#x27;#caja&#x27;).hide().fadeIn(600);        // el mensaje aparece suavemente
+});
+$(&#x27;#btn-slide&#x27;).on(&#x27;click&#x27;, function () {
+  $(&#x27;#panel&#x27;).slideToggle(400);         // la lista se desliza abierta o cerrada
+});</code></pre>
+<div class="demo"><button id="btn-fade" class="btn">fadeIn: ver mensaje</button> <button id="btn-slide" class="btn">slideToggle: ver accesorios</button>
+<div id="caja" class="box">💌 “Un abrazo que puedes personalizar.”</div>
+<div id="panel" class="box alt"><strong>Accesorios disponibles:</strong> lazo, gorro de fiesta, corona, bufanda y lentes.</div></div>
+<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://api.jquery.com/">jQuery API Documentation</a></li><li><a href="https://jquery.com/">jQuery: sitio oficial</a></li><li><a href="https://www.w3schools.com/jquery/">W3Schools: jQuery Tutorial</a></li></ul></section></div></section><section class="vista page" id="json"><div class="wrap"><h1>JSON (JavaScript Object Notation)</h1>
+<p class="lead">JSON es un formato de texto para representar datos. Es ligero, fácil de leer para una persona y fácil de procesar para casi cualquier lenguaje de programación. Por eso es el estándar para intercambiar datos entre aplicaciones y servidores: un peluche de CuddleMe, con su nombre, color y mensaje, puede viajar como JSON del formulario a la fábrica.</p>
+<h2>Estructura básica</h2>
+<ul><li><strong>Objeto:</strong> conjunto de pares clave-valor entre llaves <code>{ }</code>.</li><li><strong>Arreglo:</strong> lista ordenada de valores entre corchetes <code>[ ]</code>.</li><li><strong>Valores permitidos:</strong> texto, número, <code>true</code> o <code>false</code>, <code>null</code>, objetos y arreglos.</li><li><strong>Regla clave:</strong> las claves y los textos siempre van entre comillas dobles.</li></ul>
+<h2>Objeto de JavaScript y cadena JSON</h2>
+<p>Se parecen mucho, pero son cosas distintas: el objeto vive dentro del programa, y la cadena JSON es texto que se puede guardar o enviar.</p>
+<div class="two"><div><h3>Objeto JS</h3><pre><code>const peluche = {
+  nombre: &quot;Osito&quot;,
+  color: &quot;rosa&quot;,
+  accesorios: [&quot;lazo&quot;, &quot;gorro&quot;],
+  ropita: &quot;camiseta&quot;,
+  mensaje: &quot;Te quiero mucho&quot;,
+  personalizado: true
+};</code></pre></div><div><h3>Cadena JSON</h3><pre><code>{
+  &quot;nombre&quot;: &quot;Osito&quot;,
+  &quot;color&quot;: &quot;rosa&quot;,
+  &quot;accesorios&quot;: [&quot;lazo&quot;, &quot;gorro&quot;],
+  &quot;ropita&quot;: &quot;camiseta&quot;,
+  &quot;mensaje&quot;: &quot;Te quiero mucho&quot;,
+  &quot;personalizado&quot;: true
+}</code></pre></div></div>
+<div class="scroll"><table><thead><tr><th>Diferencia</th><th>Objeto JS</th><th>JSON</th></tr></thead><tbody><tr><td>Claves</td><td>Con o sin comillas</td><td>Siempre con comillas dobles</td></tr><tr><td>Comillas simples</td><td>Permitidas</td><td>No permitidas</td></tr><tr><td>Funciones y comentarios</td><td>Permitidos</td><td>No permitidos</td></tr></tbody></table></div>
+<p>Dos métodos convierten entre ambos: <code>JSON.stringify(objeto)</code> crea la cadena y <code>JSON.parse(cadena)</code> vuelve a crear el objeto.</p>
+<h2>Pruébalo</h2>
+<pre><code>const texto = document.getElementById(&#x27;entrada&#x27;).value;
+try {
+  const objeto = JSON.parse(texto);   // cadena JSON -&gt; objeto JS
+  salida.textContent = &#x27;Válido. El peluche se llama &#x27; + objeto.nombre;
+} catch (error) {
+  salida.textContent = &#x27;JSON inválido: &#x27; + error.message;
+}</code></pre>
+<div class="demo"><div style="flex-basis:100%"><label for="entrada"><strong>Edita el JSON y pulsa el botón:</strong></label>
+<textarea id="entrada" rows="8">{
+  &quot;nombre&quot;: &quot;Osito&quot;,
+  &quot;color&quot;: &quot;rosa&quot;,
+  &quot;accesorios&quot;: [&quot;lazo&quot;, &quot;gorro&quot;],
+  &quot;ropita&quot;: &quot;camiseta&quot;,
+  &quot;mensaje&quot;: &quot;Te quiero mucho&quot;,
+  &quot;personalizado&quot;: true
+}</textarea></div>
+<button id="btn-json" class="btn">Convertir con JSON.parse</button> <span id="salida" aria-live="polite"></span></div>
+<h2>Cómo lo usan las aplicaciones web</h2>
+<p>Cuando una página necesita datos (por ejemplo, el estado de un pedido), el navegador envía una petición a un servidor o a una API. El servidor responde con texto en formato JSON, y el código de la página lo convierte en objetos para mostrarlo en pantalla. También funciona al revés: al enviar el formulario de personalización, la página manda los datos del peluche como JSON.</p>
+<pre><code>fetch(&#x27;https://api.ejemplo.com/pedidos/1&#x27;)
+  .then(respuesta =&gt; respuesta.json())      // lee la respuesta como JSON
+  .then(datos =&gt; console.log(datos.peluche.nombre));</code></pre><section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON">MDN: JSON</a></li><li><a href="https://www.json.org/json-es.html">JSON.org (especificación)</a></li><li><a href="https://www.w3schools.com/js/js_json_intro.asp">W3Schools: JSON Tutorial</a></li></ul></section></div></section><section class="vista page" id="hosting"><div class="wrap"><h1>Web hosting y dominios</h1>
+<p class="lead">Una página web es un conjunto de archivos. Para que otras personas la vean, esos archivos deben estar en un servidor conectado a internet (hosting), y alguien debe poder encontrarlos con un nombre fácil de recordar (dominio).</p>
+<h2>Web hosting</h2>
+<p>El hosting es el servicio que guarda tus archivos en un servidor que está encendido todo el tiempo y los entrega a quien los pida.</p>
+<div class="scroll"><table><thead><tr><th>Tipo</th><th>Cómo funciona</th><th>Útil para</th></tr></thead><tbody>
+<tr><td>Compartido</td><td>Varios sitios comparten un mismo servidor</td><td>Sitios pequeños con poco tráfico y presupuesto bajo</td></tr>
+<tr><td>VPS</td><td>Una parte reservada de un servidor, con control sobre el sistema</td><td>Proyectos que necesitan configuración propia</td></tr>
+<tr><td>Nube</td><td>Recursos repartidos en muchos servidores que crecen según la demanda</td><td>Sitios con tráfico variable o que deben escalar</td></tr></tbody></table></div>
+<h3>Cómo funciona Vercel para sitios estáticos</h3>
+<p>Un sitio estático son archivos HTML, CSS y JS que no necesitan procesarse en el servidor, como este. Vercel es una plataforma en la nube pensada para publicarlos:</p>
+<ol><li>Conectas tu repositorio de GitHub a Vercel.</li><li>Vercel toma los archivos y los publica en su red de servidores repartidos por el mundo (CDN), así la página carga desde un lugar cercano.</li><li>Te da una URL pública con el formato <code>nombre-proyecto.vercel.app</code> y HTTPS incluido.</li><li>Cada vez que haces <code>git push</code>, Vercel vuelve a desplegar el sitio automáticamente.</li></ol>
+<h2>Dominios</h2>
+<p>Un <strong>nombre de dominio</strong> es la dirección legible de un sitio (como <code>cuddleme.com</code>). Reemplaza a la dirección IP, que es un número difícil de recordar. Se compra por año a un registrador.</p>
+<div class="anat" aria-label="tienda.cuddleme.com dividido en subdominio, dominio y TLD"><span class="p sub">tienda</span>.<span class="p dom">cuddleme</span>.<span class="p tld">com</span></div>
+<ul><li><strong>TLD (dominio de nivel superior):</strong> el final del dominio, como <code>.com</code> (comercial), <code>.net</code> (redes) o <code>.org</code> (organizaciones).</li><li><strong>Dominio:</strong> el nombre que eliges, junto a su TLD.</li><li><strong>Subdominio:</strong> una sección antes del dominio, como <code>tienda</code> en <code>tienda.cuddleme.com</code>, que sirve para separar partes del sitio.</li></ul>
+<h2>Propagación DNS</h2>
+<p>El DNS es la "guía telefónica" de internet: traduce dominios a direcciones IP. Así ocurre una consulta:</p>
+<ol class="flow"><li>Escribes <code>tienda.cuddleme.com</code> en el navegador.</li><li>El navegador y el sistema operativo buscan la IP en su memoria (caché). Si no la tienen, preguntan al resolver DNS de tu proveedor de internet.</li><li>El resolver consulta a un servidor raíz, que lo envía al servidor del TLD (<code>.com</code>).</li><li>El servidor del TLD indica cuál es el servidor DNS autoritativo del dominio, que guarda los registros reales.</li><li>El servidor autoritativo responde con la dirección IP del hosting.</li><li>El navegador se conecta a esa IP y recibe la página. La respuesta queda en caché por un tiempo.</li></ol>
+<p>Cuando cambias un registro DNS (por ejemplo, apuntar tu dominio a Vercel), los servidores del mundo no se enteran al instante: cada uno guarda la respuesta anterior hasta que vence su TTL (tiempo de vida). A ese reparto gradual se le llama <strong>propagación</strong> y puede tardar desde minutos hasta 48 horas.</p>
+<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://vercel.com/docs">Vercel Docs</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/DNS">MDN: DNS (glosario)</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/TLD">MDN: TLD (glosario)</a></li><li><a href="https://www.w3schools.com/whatis/whatis_hosting.asp">W3Schools: Web Hosting</a></li></ul></section></div></section><section class="vista page" id="cuestionario"><div class="wrap"><h1>Cuestionario web</h1>
+<p class="lead">Diez preguntas basadas en las páginas de este sitio. Elige una respuesta en cada una para ver al instante si es correcta. Si te equivocas, lee la explicación y repasa la página correspondiente.</p>
+<div id="quiz"></div><div id="resultado" class="result" aria-live="polite" hidden></div>
+<button id="reiniciar" class="btn" hidden>Intentar de nuevo</button></div></section></main>
+<footer><p>CuddleMe es una marca creada para un proyecto académico de desarrollo web.</p></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+const TIPOS = {
+  clasico: { n: 'Clásico', color: '#B07A4F', hocico: '#F4DDBF' },
+  panda:   { n: 'Panda',   color: '#FFFFFF', hocico: '#FFFFFF' },
+  polar:   { n: 'Polar',   color: '#FFFFFF', hocico: '#EAF2F8' },
+  miel:    { n: 'Dorado',  color: '#E8B04A', hocico: '#FBE7B5' }
+};
+const COLORES = [['#B07A4F', 'Marrón'], ['#FFFFFF', 'Blanco'], ['#E8B04A', 'Dorado'], ['#F7A8B8', 'Rosa'], ['#8EC5E8', 'Azul'], ['#C9B6E8', 'Lila']];
+const OREJAS = [['redondas', 'Redondas'], ['grandes', 'Grandes'], ['pequenas', 'Pequeñas'], ['gatito', 'De gatito']];
+const PATITAS = [['normales', 'Normales'], ['grandes', 'Grandes'], ['almohadillas', 'Con almohadillas'], ['zapatitos', 'Con zapatitos']];
+const CABEZA = [['', 'Nada'], ['lazo', 'Lazo'], ['gorro', 'Gorro de fiesta'], ['corona', 'Corona']];
+const ROPA = [['', 'Sin ropa'], ['camiseta', 'Camiseta']];
+const INICIO = { tipo: 'clasico', color: '#B07A4F', orejas: 'redondas', patitas: 'normales', cabeza: '', ropa: '', lentes: false, bufanda: false };
+let estado = Object.assign({}, INICIO);
+const ctrl = document.getElementById('ctrl'), escena = document.getElementById('escena');
+const nombreIn = document.getElementById('nombre'), msgIn = document.getElementById('msg');
+
+function grupo(titulo, clave, lista, esColor) {
+  const items = lista.map(function (o) {
+    const marca = estado[clave] === o[0] ? ' checked' : '';
+    const input = '<input type="radio" name="' + clave + '" value="' + o[0] + '"' + marca + '>';
+    return esColor
+      ? '<label>' + input + '<span class="cs" style="background:' + o[0] + '" title="' + o[1] + '"></span><span class="ver">' + o[1] + '</span></label>'
+      : '<label>' + input + '<span class="t">' + o[1] + '</span></label>';
+  }).join('');
+  return '<fieldset class="g"><legend>' + titulo + '</legend><div class="chips">' + items + '</div></fieldset>';
+}
+
+function construir() {
+  ctrl.innerHTML =
+    grupo('Tipo de oso', 'tipo', Object.keys(TIPOS).map(function (k) { return [k, TIPOS[k].n]; })) +
+    grupo('Color', 'color', COLORES, true) +
+    grupo('Orejas', 'orejas', OREJAS) +
+    grupo('Patitas', 'patitas', PATITAS) +
+    grupo('En la cabeza', 'cabeza', CABEZA) +
+    grupo('Ropita', 'ropa', ROPA) +
+    '<fieldset class="g"><legend>Extras</legend><div class="chips">' +
+    '<label><input type="checkbox" name="lentes"' + (estado.lentes ? ' checked' : '') + '><span class="t">Lentes</span></label>' +
+    '<label><input type="checkbox" name="bufanda"' + (estado.bufanda ? ' checked' : '') + '><span class="t">Bufanda</span></label></div></fieldset>';
+}
+
+function pad(x, y) {
+  const r = '#F28FA6';
+  return '<ellipse cx="' + x + '" cy="' + (y + 3) + '" rx="9" ry="7" fill="' + r + '"/>' +
+    '<circle cx="' + (x - 9) + '" cy="' + (y - 6) + '" r="3.5" fill="' + r + '"/><circle cx="' + x + '" cy="' + (y - 9) + '" r="3.5" fill="' + r + '"/><circle cx="' + (x + 9) + '" cy="' + (y - 6) + '" r="3.5" fill="' + r + '"/>';
+}
+
+function dibujar() {
+  const e = estado, t = TIPOS[e.tipo], K = '#5A3A31', D = '#2B2B2B', panda = e.tipo === 'panda';
+  const acc = e.color === '#8EC5E8' ? '#F7A8B8' : '#8EC5E8';
+  const trazo = ' stroke="' + K + '" stroke-width="3" stroke-linejoin="round"';
+  const piel = 'fill="' + e.color + '"' + trazo;
+  const marca = panda ? 'fill="' + D + '"' + trazo : piel;
+  const grandes = e.patitas === 'grandes', fr = grandes ? 28 : 22, fy = grandes ? 20 : 16;
+  let s = '';
+
+  [62, 138].forEach(function (x) {                       // patitas de abajo
+    s += '<ellipse ' + marca + ' cx="' + x + '" cy="212" rx="' + fr + '" ry="' + fy + '"/>';
+    if (e.patitas === 'zapatitos') s += '<ellipse fill="' + acc + '"' + trazo + ' cx="' + x + '" cy="212" rx="' + (fr + 3) + '" ry="' + (fy + 2) + '"/><circle cx="' + x + '" cy="203" r="4" fill="#fff"/>';
+    if (e.patitas === 'almohadillas') s += pad(x, 212);
+  });
+  const ar = grandes ? [20, 34] : [16, 30];              // brazos
+  s += '<ellipse ' + marca + ' cx="46" cy="150" rx="' + ar[0] + '" ry="' + ar[1] + '" transform="rotate(20 46 150)"/>' +
+       '<ellipse ' + marca + ' cx="154" cy="150" rx="' + ar[0] + '" ry="' + ar[1] + '" transform="rotate(-20 154 150)"/>';
+  s += '<circle ' + piel + ' cx="100" cy="164" r="52"/>';  // cuerpo
+
+  if (e.ropa === 'camiseta') s += '<path d="M62 134Q100 148 138 134L148 190Q100 216 52 190Z" fill="#fff"' + trazo + '/><path d="M100 188c-14-10-18-20-9-25 5-3 9 0 9 4 0-4 4-7 9-4 9 5 5 15-9 25z" fill="#F7A8B8"' + trazo + '/>';
+  if (e.bufanda) s += '<path d="M60 128Q100 148 140 128L144 146Q100 166 56 146Z" fill="' + acc + '"' + trazo + '/><path d="M120 150L130 190L148 184L140 142Z" fill="' + acc + '"' + trazo + '/>';
+
+  if (e.orejas === 'gatito') {                           // orejas
+    s += '<path ' + marca + ' d="M44 64L54 12L90 46Z"/><path ' + marca + ' d="M156 64L146 12L110 46Z"/>';
+    if (!panda) s += '<path d="M54 54L58 28L78 46Z" fill="#8EC5E8"/><path d="M146 54L142 28L122 46Z" fill="#8EC5E8"/>';
+  } else {
+    const o = { redondas: [17, 62, 48, 138], grandes: [24, 58, 46, 142], pequenas: [11, 66, 52, 134] }[e.orejas];
+    [o[1], o[3]].forEach(function (x) {
+      s += '<circle ' + marca + ' cx="' + x + '" cy="' + o[2] + '" r="' + o[0] + '"/>';
+      if (!panda) s += '<circle cx="' + x + '" cy="' + o[2] + '" r="' + Math.round(o[0] / 2) + '" fill="#8EC5E8"/>';
+    });
+  }
+
+  s += '<circle ' + piel + ' cx="100" cy="86" r="48"/><ellipse cx="100" cy="102" rx="20" ry="15" fill="' + t.hocico + '"/>';   // cabeza
+  s += '<circle cx="76" cy="98" r="6" fill="#F28FA6" opacity=".7"/><circle cx="124" cy="98" r="6" fill="#F28FA6" opacity=".7"/>';
+  if (panda) s += '<ellipse cx="82" cy="80" rx="11" ry="14" fill="' + D + '" transform="rotate(20 82 80)"/><ellipse cx="118" cy="80" rx="11" ry="14" fill="' + D + '" transform="rotate(-20 118 80)"/>' +
+    '<circle cx="82" cy="78" r="4.5" fill="#fff"/><circle cx="118" cy="78" r="4.5" fill="#fff"/><circle cx="82" cy="78" r="2.2" fill="' + D + '"/><circle cx="118" cy="78" r="2.2" fill="' + D + '"/>';
+  else s += '<circle cx="82" cy="78" r="5" fill="' + K + '"/><circle cx="118" cy="78" r="5" fill="' + K + '"/>';
+  s += '<ellipse cx="100" cy="95" rx="6.5" ry="4.8" fill="' + (panda ? D : K) + '"/><path d="M100 100v6M100 106q-6 5-12 0M100 106q6 5 12 0" fill="none" stroke="' + K + '" stroke-width="3" stroke-linecap="round"/>';
+
+  if (e.lentes) s += '<circle cx="82" cy="78" r="12" fill="rgba(142,197,232,.35)" stroke="' + K + '" stroke-width="3"/><circle cx="118" cy="78" r="12" fill="rgba(142,197,232,.35)" stroke="' + K + '" stroke-width="3"/><path d="M94 78H106M70 76L56 72M130 76L144 72" fill="none" stroke="' + K + '" stroke-width="3" stroke-linecap="round"/>';
+  if (e.cabeza === 'lazo') s += '<path d="M134 46L112 34V58ZM134 46L156 34V58Z" fill="' + acc + '"' + trazo + '/><circle cx="134" cy="46" r="6" fill="#fff"' + trazo + '/>';
+  if (e.cabeza === 'gorro') s += '<path d="M100 2L70 54H130Z" fill="' + acc + '"' + trazo + '/><path d="M86 30H114" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="100" cy="4" r="7" fill="#fff"' + trazo + '/>';
+  if (e.cabeza === 'corona') s += '<path d="M70 54L74 20L88 36L100 12L112 36L126 20L130 54Z" fill="#F6C945"' + trazo + '/><circle cx="100" cy="40" r="4" fill="#F7A8B8"/>';
+
+  escena.innerHTML = '<svg viewBox="0 0 200 240" role="img" aria-label="Peluche ' + t.n + '">' + s + '</svg>';
+  document.getElementById('hola').textContent = nombreIn.value.trim() ? 'Hola, soy ' + nombreIn.value.trim() : 'Ponle nombre a tu peluche';
+  document.getElementById('nota').textContent = msgIn.value.trim() || 'Aquí aparecerá tu mensaje especial.';
+}
+
+ctrl.addEventListener('change', function (ev) {
+  const el = ev.target;
+  if (el.type === 'checkbox') estado[el.name] = el.checked;
+  else {
+    estado[el.name] = el.value;
+    if (el.name === 'tipo') {                              // cada tipo trae su color base
+      estado.color = TIPOS[el.value].color;
+      ctrl.querySelectorAll('input[name=color]').forEach(function (r) { r.checked = r.value === estado.color; });
+    }
+  }
+  dibujar();
+});
+nombreIn.addEventListener('input', dibujar);
+msgIn.addEventListener('input', dibujar);
+document.getElementById('reset').addEventListener('click', function () {
+  estado = Object.assign({}, INICIO);
+  nombreIn.value = ''; msgIn.value = '';
+  construir(); dibujar();
+});
+construir();
+dibujar();
+
+
+
+const boton = document.getElementById('btn-abrazo');
+const salida = document.getElementById('salida-abrazo');
+let abrazos = 0;
+function darAbrazo() {
+  abrazos = abrazos + 1;
+  salida.textContent = 'Abrazos: ' + abrazos;
+}
+boton.addEventListener('click', darAbrazo);
+boton.addEventListener('mouseover', () => boton.style.background = '#8EC5E8');
+boton.addEventListener('mouseout', () => boton.style.background = '');
+
+
+$('#btn-fade').on('click', function () {
+  $('#caja').hide().fadeIn(600);        // el mensaje aparece suavemente
+});
+$('#btn-slide').on('click', function () {
+  $('#panel').slideToggle(400);         // la lista se desliza abierta o cerrada
+});
+
+
+document.getElementById('btn-json').addEventListener('click', function () {
+  const salida = document.getElementById('salida');
+const texto = document.getElementById('entrada').value;
+try {
+  const objeto = JSON.parse(texto);   // cadena JSON -> objeto JS
+  salida.textContent = 'Válido. El peluche se llama ' + objeto.nombre;
+} catch (error) {
+  salida.textContent = 'JSON inválido: ' + error.message;
+}
+});
+
+const preguntas = [
+  { t: "¿Qué lenguaje define el comportamiento de una página web?", o: ["HTML", "CSS", "JavaScript", "JSON"], c: 2, x: "HTML da estructura, CSS da estilo y JavaScript define el comportamiento." },
+  { t: "¿Por qué un cambio de DNS puede tardar hasta 48 horas en verse en todo el mundo?", o: ["Porque hay que reiniciar el navegador", "Por la propagación DNS: los servidores guardan la respuesta anterior hasta que vence su TTL", "Porque hay que comprar otro dominio", "Porque cambia el TLD"], c: 1, x: "Cada servidor guarda la respuesta anterior hasta que vence su TTL; ese reparto gradual es la propagación." },
+  { t: "Verdadero o falso: el evento mouseover se activa cuando el cursor pasa sobre un elemento.", o: ["Verdadero", "Falso"], c: 0, x: "Es el evento de hover. Se conecta a una función con addEventListener." },
+  { t: "¿Qué símbolo es la función principal de jQuery?", o: ["#", "$", "@", "%"], c: 1, x: "Con $ se selecciona un elemento y se le aplica una acción, por ejemplo $('#caja').hide()." },
+  { t: "Verdadero o falso: hoy es obligatorio usar jQuery para manipular el DOM.", o: ["Verdadero", "Falso"], c: 1, x: "Falso. JavaScript moderno ofrece querySelector, classList y fetch, así que jQuery ya no es necesario." },
+  { t: "¿Qué método de jQuery abre y cierra un elemento con un deslizamiento?", o: ["fadeIn", "hide", "slideToggle", "addClass"], c: 2, x: "slideToggle alterna entre mostrar y ocultar deslizando el elemento." },
+  { t: "En JSON, ¿cómo deben escribirse las claves?", o: ["Sin comillas", "Con comillas simples", "Con comillas dobles", "Entre paréntesis"], c: 2, x: "JSON exige comillas dobles en claves y textos." },
+  { t: "¿Qué hace JSON.parse?", o: ["Convierte un objeto en texto", "Convierte una cadena JSON en un objeto", "Envía datos al servidor", "Borra un objeto"], c: 1, x: "parse convierte texto JSON en un objeto de JavaScript; stringify hace lo contrario." },
+  { t: "Con un repositorio de GitHub conectado a Vercel, ¿qué ocurre al hacer git push?", o: ["Nada hasta pagar el dominio", "Vercel despliega el sitio de nuevo automáticamente", "El repositorio se borra", "El sitio pasa a ser privado"], c: 1, x: "Vercel detecta el push y publica la nueva versión sin pasos manuales." },
+  { t: "En tienda.cuddleme.com, ¿cuál es el TLD?", o: [".com", "cuddleme", "tienda", ".tienda.cuddleme"], c: 0, x: "El TLD es el final del dominio (.com). 'tienda' es el subdominio y 'cuddleme' el nombre del dominio." }
+];
+const cont = document.getElementById('quiz'), res = document.getElementById('resultado'), otra = document.getElementById('reiniciar');
+let aciertos = 0, hechas = 0;
+
+function pintar() {
+  aciertos = 0; hechas = 0; res.hidden = true; otra.hidden = true; cont.innerHTML = '';
+  preguntas.forEach(function (p, i) {
+    const f = document.createElement('fieldset'); f.className = 'q';
+    f.innerHTML = '<legend>' + (i + 1) + '. ' + p.t + '</legend>' +
+      p.o.map(function (txt, j) { return '<label><input type="radio" name="p' + i + '" value="' + j + '"> ' + txt + '</label>'; }).join('') +
+      '<p class="fb" aria-live="polite"></p>';
+    f.addEventListener('change', function (ev) {
+      const elegida = Number(ev.target.value), labels = f.querySelectorAll('label');
+      f.querySelectorAll('input').forEach(function (r) { r.disabled = true; });
+      labels[p.c].classList.add('right');
+      const ok = elegida === p.c;
+      if (!ok) labels[elegida].classList.add('wrong');
+      f.querySelector('.fb').textContent = (ok ? 'Correcto. ' : 'Incorrecto. ') + p.x;
+      if (ok) aciertos++;
+      hechas++;
+      if (hechas === preguntas.length) {
+        res.textContent = 'Tu resultado: ' + aciertos + ' de ' + preguntas.length;
+        res.hidden = false; otra.hidden = false;
+      }
+    });
+    cont.appendChild(f);
+  });
+}
+otra.addEventListener('click', function () { pintar(); window.scrollTo(0, 0); });
+pintar();
+</script>
+<script>
+(function(){
+  var vistas=document.querySelectorAll('.vista'), links=document.querySelectorAll('header nav a');
+  function ir(){
+    var id=(location.hash||'#inicio').slice(1);
+    if(!document.getElementById(id)||!document.getElementById(id).classList.contains('vista')) id='inicio';
+    vistas.forEach(function(v){v.classList.toggle('on',v.id===id)});
+    links.forEach(function(a){ if(a.getAttribute('href')==='#'+id) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    document.title=document.querySelector('header nav a[href="#'+id+'"]').textContent+' | CuddleMe';
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',ir); ir();
+})();</script>
+</body></html>
