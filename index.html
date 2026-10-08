@@ -1,95 +1,177 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8">
+<html lang="es" data-bs-theme="light"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CuddleMe</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ctext y=%2752%27 font-size=%2752%27%3E%F0%9F%A7%B8%3C/text%3E%3C/svg%3E">
+<!-- Se aplica el tema guardado antes de pintar la página para evitar un parpadeo blanco. -->
+<script>
+(function () {
+  var tema = 'light';
+  try {
+    tema = localStorage.getItem('cuddle-tema') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  } catch (e) {}
+  document.documentElement.setAttribute('data-bs-theme', tema);
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<!-- Bootstrap 5.3: sistema de rejilla, navbar, tarjetas, modal, carrusel y temas claro/oscuro. -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
+/* ==================== VARIABLES Y TEMAS ==================== */
+/* Colores de marca (iguales en ambos temas) y colores que cambian con el tema. */
+:root,[data-bs-theme=light]{
+  --rosa:#F7A8B8;--cielo:#8EC5E8;--cacao:#5A3A31;
+  --bg:#FFF3F6;--surface:#fff;--ink:#5A3A31;--line:#f0c9d2;
+  --strong:#5A3A31;--on-strong:#fff;--hero:#F7A8B8;--code-bg:#5A3A31;
+  --bs-body-bg:#FFF3F6;--bs-body-color:#5A3A31;
+}
+[data-bs-theme=dark]{
+  --bg:#1d1517;--surface:#2a1e21;--ink:#f4e4e8;--line:#4a3036;
+  --strong:#F7A8B8;--on-strong:#2a1519;--hero:#3a2027;--code-bg:#130d0e;
+  --bs-body-bg:#1d1517;--bs-body-color:#f4e4e8;
+}
+
 /* ==================== ESTILOS GENERALES ==================== */
-/* Variables de colores principales utilizadas en todo el proyecto. */
-:root{--rosa:#F7A8B8;--cacao:#5A3A31;--cielo:#8EC5E8;--bruma:#FFF3F6;--peluche:#F7A8B8}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bruma);color:var(--cacao);font:1.0625rem/1.65 Nunito,system-ui,sans-serif}
-h1,h2,h3{font-family:"Baloo 2",Nunito,system-ui,sans-serif;line-height:1.1}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:1.0625rem/1.65 Nunito,system-ui,sans-serif;transition:background-color .35s ease,color .35s ease}
+h1,h2,h3{font-family:"Baloo 2",Nunito,system-ui,sans-serif;line-height:1.1;color:var(--ink)}
 h1{font-size:clamp(2.8rem,8vw,4.8rem);margin:0}h2{font-size:1.8rem;margin:2.5rem 0 .75rem}h3{font-size:1.25rem}
-a{color:var(--cacao);text-decoration-color:var(--rosa);text-decoration-thickness:3px;text-underline-offset:3px}
-:focus-visible{outline:3px solid var(--cielo);outline-offset:2px}
+a{color:var(--ink);text-decoration-color:var(--rosa);text-decoration-thickness:3px;text-underline-offset:3px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--cielo)!important;outline-offset:2px}
 .wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem 1rem}
-.top{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 2rem;padding:.7rem 1.25rem;background:#fff;border-bottom:4px solid var(--rosa)}
-.brand{display:flex;align-items:center;gap:.6rem;font:700 1.5rem "Baloo 2",sans-serif;text-decoration:none}
-nav{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem}
-nav a{text-decoration:none;padding:.25rem 0;border-bottom:3px solid transparent}
-nav a:hover,nav a[aria-current]{border-bottom-color:var(--rosa)}
-.hero{background:var(--rosa);padding:2.5rem 0}
-.hero-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));gap:2rem 3rem;align-items:start}
-.lead{font-size:1.3rem;max-width:34rem}.hero .lead{margin:.5rem 0 1.25rem;font-weight:700}
+.lead{font-size:1.3rem;font-weight:400;max-width:34rem}
+.hero .lead{margin:.5rem 0 1.25rem;font-weight:700}
+.page .lead{max-width:42rem}
+code{font:.92em ui-monospace,Consolas,monospace;background:var(--surface);color:var(--ink);padding:.05em .3em}
+pre{background:var(--code-bg);color:#fff;padding:1rem;overflow-x:auto;border-left:6px solid var(--rosa);line-height:1.5;border-radius:0 12px 12px 0}
+pre code{background:none;padding:0;color:inherit}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;background:var(--surface);margin:1rem 0;color:var(--ink)}
+th,td{text-align:left;padding:.6rem .8rem;border:2px solid var(--line);vertical-align:top}
+th{background:var(--rosa);color:#5A3A31}
+
+/* ==================== BARRA DE NAVEGACIÓN (Bootstrap navbar) ==================== */
+.navbar{background:var(--surface);border-bottom:4px solid var(--rosa);padding-top:.7rem;padding-bottom:.7rem;transition:padding .25s ease,box-shadow .25s ease,background-color .35s ease}
+.navbar.scrolled{padding-top:.3rem;padding-bottom:.3rem;box-shadow:0 6px 18px rgba(90,58,49,.18)}
+.brand{display:flex;align-items:center;gap:.6rem;font:700 1.5rem "Baloo 2",sans-serif;color:var(--ink);text-decoration:none}
+.brand svg{background:#FFF3F6;border-radius:50%;padding:2px}
+.navbar .nav-link{color:var(--ink);font-weight:700;border-bottom:3px solid transparent;padding:.25rem 0;margin:0 .6rem;transition:border-color .2s}
+.navbar .nav-link:hover,.navbar .nav-link.active{color:var(--ink);border-bottom-color:var(--rosa)}
+.navbar-toggler{border:3px solid var(--ink);color:var(--ink);font-size:1.3rem;line-height:1;padding:.25rem .6rem}
+.tema-btn{border:3px solid var(--ink);background:var(--surface);color:var(--ink);border-radius:999px;padding:.2rem .8rem;font-weight:800;cursor:pointer;transition:background-color .2s,transform .2s}
+.tema-btn:hover{background:var(--cielo);color:#5A3A31}
+.tema-btn:active{transform:scale(.95)}
+
+/* ==================== BOTONES (Bootstrap .btn con colores de marca) ==================== */
+.btn-cuddle{--bs-btn-color:#5A3A31;--bs-btn-bg:var(--rosa);--bs-btn-border-color:var(--ink);--bs-btn-hover-color:#5A3A31;--bs-btn-hover-bg:var(--cielo);--bs-btn-hover-border-color:var(--ink);--bs-btn-active-color:#5A3A31;--bs-btn-active-bg:var(--cielo);--bs-btn-active-border-color:var(--ink);--bs-btn-border-width:3px;--bs-btn-border-radius:999px;font:700 1.05rem "Baloo 2",sans-serif;padding:.45rem 1.2rem;transition:background-color .2s,transform .15s}
+.btn-cuddle:active{transform:scale(.96)}
+.hero .btn-cuddle{--bs-btn-bg:var(--surface);--bs-btn-color:var(--ink);--bs-btn-hover-color:#5A3A31}
+
+/* ==================== SECCIÓN HERO Y PERSONALIZADOR ==================== */
+.hero{background:var(--hero);padding:2.5rem 0;transition:background-color .35s ease}
 .f{display:block;font-weight:800;margin:.8rem 0 .2rem}
-.hero input[type=text],.hero select{width:100%;max-width:22rem;font:1rem Nunito,sans-serif;padding:.5rem .7rem;border:3px solid var(--cacao);background:#fff;color:var(--cacao)}
-.cols{display:flex;gap:.6rem;flex-wrap:wrap}
-.cols label{cursor:pointer}.cols input{position:absolute;opacity:0}
-.cols span{display:block;width:2.6rem;height:2.6rem;border-radius:50%;border:3px solid var(--cacao)}
-.cols input:checked+span{outline:4px solid var(--cielo);outline-offset:2px}
-.cols input:focus-visible+span{outline:4px solid var(--cacao);outline-offset:2px}
-.stage{background:var(--bruma);border:4px solid var(--cacao);padding:1rem;text-align:center;max-width:22rem;margin:0 auto}
+.form-control{font:1rem Nunito,sans-serif;padding:.5rem .7rem;border:3px solid var(--ink);border-radius:0;background-color:var(--surface);color:var(--ink)}
+.form-control:focus{background-color:var(--surface);color:var(--ink);border-color:var(--ink);box-shadow:0 0 0 .25rem rgba(142,197,232,.6)}
+.form-control::placeholder{color:var(--ink);opacity:.55}
+.hero .form-control{max-width:22rem}
+.stage{background:#FFF3F6;color:#5A3A31;border:4px solid #5A3A31;padding:1rem;text-align:center;max-width:22rem;margin:0 auto}
 .stage svg{width:100%;max-width:15rem;height:auto}
 .stage .hola{font:700 1.5rem "Baloo 2",sans-serif;margin:0}
 .nota{background:#fff;border:3px dashed var(--cielo);padding:.6rem .8rem;margin:.75rem 0 0;min-height:3rem}
-.pl{fill:var(--peluche);stroke:var(--cacao);stroke-width:3;stroke-linejoin:round}
+@media (min-width:992px){.stage{position:sticky;top:5.5rem}}
+.g{border:0;padding:0;margin:.9rem 0}.g legend{font-weight:800;padding:0;margin-bottom:.3rem;font-size:1.0625rem;font-family:Nunito,sans-serif;float:none}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}.chips label{position:relative;cursor:pointer;display:block}
+.chips input{position:absolute;opacity:0}
+.chips .t{display:block;padding:.3rem .85rem;background:var(--surface);border:3px solid var(--ink);border-radius:999px;font-weight:700;transition:background-color .2s,color .2s}
+.chips input:checked+.t{background:var(--strong);color:var(--on-strong)}
+.chips input:focus-visible+.t,.chips input:focus-visible+.cs{outline:4px solid var(--cielo);outline-offset:2px}
+.cs{display:block;width:2.6rem;height:2.6rem;border-radius:50%;border:3px solid var(--ink)}
+.chips input:checked+.cs{outline:4px solid var(--ink);outline-offset:2px}
+.ver{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ==================== PÁGINA DE INICIO ==================== */
 .facts{display:grid;grid-template-columns:11rem 1fr;gap:.75rem 1.5rem}.facts dt{font-weight:800}.facts dd{margin:0}
-.opts{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0}.opts li{background:#fff;border:3px solid var(--rosa);padding:.3rem .8rem;font-weight:700}
-.sw{list-style:none;padding:0}.sw li{display:flex;gap:1rem;margin:0 0 1rem}.sw p{margin:.1rem 0 0}
-.chip{flex:none;width:3.5rem;height:3.5rem;border:3px solid var(--cacao);border-radius:50%}
-code{font:.92em ui-monospace,Consolas,monospace;background:#fff;padding:.05em .3em}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0}.opts li{background:var(--surface);border:3px solid var(--rosa);padding:.3rem .8rem;font-weight:700}
+.swatch{display:flex;gap:1rem;background:var(--surface);border:3px solid var(--line);padding:1rem;height:100%}
+.swatch p{margin:.1rem 0 0}
+.chip{flex:none;width:3.5rem;height:3.5rem;border:3px solid var(--ink);border-radius:50%}
 .logo-row{display:flex;flex-wrap:wrap;gap:1.5rem}
-.logo-row svg{background:#fff;border:3px solid var(--cacao);padding:1rem}.logo-row svg.dk{background:var(--cacao)}.logo-row svg.pk{background:var(--rosa)}
-footer{max-width:62rem;margin:2rem auto 0;padding:1.25rem;border-top:1px solid #ecc9d2;font-size:.95rem}
+.logo-row svg{background:#fff;border:3px solid var(--ink);padding:1rem}.logo-row svg.dk{background:#5A3A31}.logo-row svg.pk{background:var(--rosa)}
 @media (max-width:40rem){.facts{grid-template-columns:1fr}.facts dd{margin-bottom:.5rem}}
-h1+.lead{margin-top:.5rem}.page h1{margin-top:1.5rem}
-pre{background:var(--cacao);color:#fff;padding:1rem;overflow-x:auto;border-left:6px solid var(--rosa);line-height:1.5;border-radius:0 12px 12px 0}
-pre code{background:none;padding:0;color:inherit}
-.scroll{overflow-x:auto}
-table{border-collapse:collapse;width:100%;background:#fff;margin:1rem 0}
-th,td{text-align:left;padding:.6rem .8rem;border:2px solid #f0c9d2;vertical-align:top}
-th{background:var(--rosa)}
-.demo{background:#fff;border:3px solid var(--cacao);padding:1rem;margin:1rem 0;display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1rem}
-.btn{font:700 1.05rem "Baloo 2",sans-serif;background:var(--rosa);color:var(--cacao);border:3px solid var(--cacao);padding:.5rem 1.2rem;cursor:pointer;border-radius:999px;transition:background .2s}
-.btn:hover{background:var(--cielo)}
+
+/* Carrusel con crossfade (Bootstrap .carousel-fade) */
+.slide{display:flex;flex-direction:column;align-items:center;gap:1rem;background:linear-gradient(135deg,var(--s1),var(--s2));color:#5A3A31;border:4px solid var(--ink);border-radius:1.5rem;padding:1.5rem 3.5rem;min-height:23rem;justify-content:center}
+@media (min-width:768px){.slide{flex-direction:row;gap:2rem}}
+.slide h3{color:#5A3A31;font-size:1.7rem}
+.slide p{margin:0;font-weight:700;max-width:26rem}
+.slide-img{width:11rem;height:auto;flex:none}
+.carousel-control-prev-icon,.carousel-control-next-icon{filter:invert(1)}
+.carousel-indicators{position:static;margin:.9rem 0 0;justify-content:center}
+.carousel-indicators [data-bs-target]{background-color:var(--ink);width:2.2rem;height:.45rem;border:0;border-radius:99px}
+.carousel-controls-row{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+.carousel-controls-row .carousel-indicators{margin:.9rem 0 0}
+
+/* ==================== PÁGINAS EDUCATIVAS ==================== */
+.page-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.5rem}
+.page-head h1{margin-top:0}
+.banner-bear{width:9rem;height:auto;flex:none;background:var(--hero);border:4px solid var(--ink);border-radius:50% 50% 1.5rem 1.5rem;padding:.6rem}
+.demo{background:var(--surface);border:3px solid var(--ink);padding:1rem;margin:1rem 0;display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1rem}
 .bib{margin-top:2.5rem;border-top:3px solid var(--rosa)}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:0 1.5rem}
-.box{background:#fff;border:3px solid var(--cielo);padding:1rem;margin:.5rem 0;flex-basis:100%}.box.alt{border-color:var(--rosa)}
+.box{background:var(--surface);border:3px solid var(--cielo);padding:1rem;margin:.5rem 0;flex-basis:100%}.box.alt{border-color:var(--rosa)}
 #caja{display:none}
-textarea{display:block;width:100%;font:.95rem ui-monospace,Consolas,monospace;margin:.5rem 0;padding:.6rem;border:3px solid var(--cacao)}
+textarea.form-control{font:.95rem ui-monospace,Consolas,monospace;margin:.5rem 0}
 .anat{font:700 2rem "Baloo 2",sans-serif;margin:1rem 0}.anat .p{padding:.1rem .5rem;border-radius:10px}
-.sub{background:var(--cielo)}.dom{background:var(--cacao);color:#fff}.tld{background:var(--rosa)}
+.sub{background:var(--cielo);color:#5A3A31}.dom{background:var(--strong);color:var(--on-strong)}.tld{background:var(--rosa);color:#5A3A31}
 .flow{list-style:none;counter-reset:s;padding:0}
-.flow li{counter-increment:s;position:relative;background:#fff;border-left:6px solid var(--rosa);padding:.7rem 1rem .7rem 3rem;margin:0 0 1.1rem}
+.flow li{counter-increment:s;position:relative;background:var(--surface);border-left:6px solid var(--rosa);padding:.7rem 1rem .7rem 3rem;margin:0 0 1.1rem}
 .flow li::before{content:counter(s);position:absolute;left:.8rem;font:700 1.2rem "Baloo 2",sans-serif}
 .flow li:not(:last-child)::after{content:"";position:absolute;left:1.05rem;bottom:-1rem;border:.4rem solid transparent;border-top-color:var(--rosa)}
-.q{background:#fff;border:3px solid var(--cacao);margin:0 0 1.25rem;padding:1rem 1.25rem}
-.q legend{font:700 1.15rem "Baloo 2",sans-serif;padding:0 .4rem}
-.q label{display:block;padding:.45rem .7rem;margin:.25rem 0;border:3px solid transparent;border-radius:12px;cursor:pointer}
-.q label:hover{border-color:var(--rosa)}
-.q .right{background:#DDF1E4;border-color:#3E8E5A}.q .wrong{background:#FBE0E0;border-color:#B3261E}
-.fb{margin:.6rem 0 0;font-weight:700}
-.result{background:var(--cacao);color:#fff;padding:1.25rem;font:700 1.4rem "Baloo 2",sans-serif;margin:1.5rem 0}
 
-.g{border:0;padding:0;margin:.9rem 0}.g legend{font-weight:800;padding:0;margin-bottom:.3rem}
-.chips{display:flex;flex-wrap:wrap;gap:.4rem}.chips label{position:relative;cursor:pointer}
-.chips input{position:absolute;opacity:0}
-.chips .t{display:block;padding:.3rem .85rem;background:#fff;border:3px solid var(--cacao);border-radius:999px;font-weight:700}
-.chips input:checked+.t{background:var(--cacao);color:#fff}
-.chips input:focus-visible+.t,.chips input:focus-visible+.cs{outline:4px solid var(--cielo);outline-offset:2px}
-.cs{display:block;width:2.6rem;height:2.6rem;border-radius:50%;border:3px solid var(--cacao)}
-.chips input:checked+.cs{outline:4px solid var(--cacao);outline-offset:2px}
-.ver{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.hero .btn{background:#fff}.hero .btn:hover{background:var(--cielo)}
-.stage{position:sticky;top:1rem}
-@media (max-width:48rem){.stage{position:static;order:-1}}
-.vista{display:none}.vista.on{display:block}
-html{color-scheme:light}
+/* ==================== PÁGINA: IA DE GOOGLE ==================== */
+.filtros{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:1.25rem 0 .5rem}
+.filtros .form-control{max-width:15rem;border-radius:999px}
+.tool{background:var(--surface);border:3px solid var(--ink);border-radius:1.25rem;overflow:hidden;color:var(--ink);transition:transform .2s ease,box-shadow .2s ease}
+.tool:hover{transform:translateY(-4px);box-shadow:0 10px 0 var(--rosa)}
+.tool-banner{height:7.5rem;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--g1),var(--g2));border-bottom:3px solid var(--ink);font-size:3.4rem}
+.tool h3{margin:.4rem 0 .3rem;color:var(--ink)}
+.tool p{font-size:.98rem;margin-bottom:1rem}
+.cat{display:inline-block;align-self:flex-start;font-weight:800;font-size:.85rem;padding:.1rem .7rem;border-radius:999px;border:2px solid #5A3A31;color:#5A3A31}
+.cat-estudio{background:var(--cielo)}.cat-creatividad{background:var(--rosa)}.cat-desarrollo{background:#F6C945}
+.pop{animation:pop .35s ease both}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.modal-content{background:var(--surface);color:var(--ink);border:4px solid var(--ink);border-radius:1.25rem}
+.modal-header,.modal-footer{border-color:var(--line)}
+.modal-title{font:700 1.6rem "Baloo 2",sans-serif;color:var(--ink)}
+.idea{background:var(--bg);border-left:6px solid var(--cielo);padding:.7rem 1rem;margin:1rem 0 0}
+.nota-pie{background:var(--surface);border:3px dashed var(--cielo);padding:.8rem 1rem;margin-top:1.5rem}
+
+/* ==================== CUESTIONARIO ==================== */
+.q{background:var(--surface);border:3px solid var(--ink);margin:0 0 1.25rem;padding:1rem 1.25rem}
+.q legend{font:700 1.15rem "Baloo 2",sans-serif;padding:0 .4rem;float:none;width:auto;margin-bottom:.4rem}
+.q label{display:block;padding:.45rem .7rem;margin:.25rem 0;border:3px solid transparent;border-radius:12px;cursor:pointer;transition:border-color .2s}
+.q label:hover{border-color:var(--rosa)}
+.q .right{background:#DDF1E4;border-color:#3E8E5A;color:#16301f}.q .wrong{background:#FBE0E0;border-color:#B3261E;color:#4a1411}
+.fb{margin:.6rem 0 0;font-weight:700}
+.result{background:var(--strong);color:var(--on-strong);padding:1.25rem;font:700 1.4rem "Baloo 2",sans-serif;margin:1.5rem 0}
+
+/* ==================== NAVEGACIÓN SUAVE Y EXTRAS ==================== */
+main{transition:opacity .18s ease}
+main.saliendo{opacity:0}
+.vista{display:none}.vista.on{display:block;animation:entra .45s ease both}
+@keyframes entra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.subir{position:fixed;right:max(1rem,env(safe-area-inset-right,0px));bottom:max(1rem,env(safe-area-inset-bottom,0px));width:3rem;height:3rem;border-radius:50%;border:3px solid var(--ink);background:var(--rosa);color:#5A3A31;font-size:1.3rem;font-weight:800;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s;z-index:1030}
+.subir.visible{opacity:1;pointer-events:auto;transform:none}
+footer{max-width:62rem;margin:2rem auto 0;padding:1.25rem;border-top:1px solid var(--line);font-size:.95rem}
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-/* El diseño responsive adapta el sitio a diferentes tamaños de pantalla. */
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
 </style>
 </head><body>
 <!-- SVG oculto que define el logotipo reutilizable de CuddleMe. -->
@@ -103,22 +185,64 @@ html{color-scheme:light}
 <ellipse cx="32" cy="41.5" rx="3.3" ry="2.4" fill="#5A3A31"/>
 <path d="M32 44v3M32 47q-3 2.6-6 0M32 47q3 2.6 6 0" fill="none" stroke="#5A3A31" stroke-width="1.8" stroke-linecap="round"/>
 </symbol></svg>
-<!-- Encabezado principal con el logotipo y el menú de navegación. -->
-<header class="top"><a class="brand" href="#inicio"><svg width="40" height="40" aria-hidden="true"><use href="#logo"/></svg><span>CuddleMe</span></a>
-<nav aria-label="Principal"><a href="#inicio">Inicio</a><a href="#javascript">JavaScript</a><a href="#jquery">jQuery</a><a href="#json">JSON</a><a href="#hosting">Hosting y Dominios</a><a href="#cuestionario">Cuestionario Web</a></nav></header>
+
+<!-- Encabezado principal: navbar de Bootstrap con logotipo, menú y botón de tema claro/oscuro. -->
+<nav class="navbar navbar-expand-xl sticky-top" id="barra" aria-label="Principal">
+  <div class="container-fluid px-3 px-xl-4">
+    <a class="brand navbar-brand m-0" href="#inicio"><svg width="40" height="40" aria-hidden="true"><use href="#logo"/></svg><span>CuddleMe</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">☰</button>
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-xl-4 me-auto mb-2 mb-xl-0">
+        <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#javascript">JavaScript</a></li>
+        <li class="nav-item"><a class="nav-link" href="#jquery">jQuery</a></li>
+        <li class="nav-item"><a class="nav-link" href="#json">JSON</a></li>
+        <li class="nav-item"><a class="nav-link" href="#hosting">Hosting y Dominios</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ia">IA de Google</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cuestionario">Cuestionario Web</a></li>
+      </ul>
+      <button id="tema" class="tema-btn" type="button" aria-pressed="false"><span id="tema-icono" aria-hidden="true">🌙</span> <span id="tema-txt">Modo oscuro</span></button>
+    </div>
+  </div>
+</nav>
+
 <!-- Contenido principal del sitio. La clase "vista" permite cambiar entre secciones. -->
 <main><section class="vista" id="inicio">
 <!-- Sección principal donde el usuario personaliza su peluche. -->
-<section class="hero"><div class="wrap hero-in">
-<div><h1>CuddleMe</h1>
+<section class="hero"><div class="container"><div class="row g-4 g-lg-5 align-items-start">
+<div class="col-lg-6 order-2 order-lg-1"><h1>CuddleMe</h1>
 <p class="lead">Un abrazo que puedes personalizar. Empieza con un peluche liso y hazlo tuyo.</p>
 <div id="ctrl"></div>
-<label class="f" for="nombre">Nombre</label><input id="nombre" type="text" placeholder="Osito" maxlength="16">
-<label class="f" for="msg">Mensaje especial</label><input id="msg" type="text" placeholder="Feliz cumpleaños, te quiero mucho" maxlength="60">
-<p><button id="reset" class="btn" type="button">Empezar de nuevo</button></p></div>
-<div class="stage" aria-live="polite"><div id="escena"></div><p class="hola" id="hola"></p><p class="nota" id="nota"></p></div>
-</div></section>
+<label class="f" for="nombre">Nombre</label><input id="nombre" class="form-control" type="text" placeholder="Osito" maxlength="16">
+<label class="f" for="msg">Mensaje especial</label><input id="msg" class="form-control" type="text" placeholder="Feliz cumpleaños, te quiero mucho" maxlength="60">
+<p class="mt-3"><button id="reset" class="btn btn-cuddle" type="button">Empezar de nuevo</button></p></div>
+<div class="col-lg-6 order-1 order-lg-2"><div class="stage" aria-live="polite"><div id="escena"></div><p class="hola" id="hola"></p><p class="nota" id="nota"></p></div></div>
+</div></div></section>
 <div class="wrap">
+<!-- Galería: carrusel de Bootstrap con efecto crossfade (clase carousel-fade). -->
+<section><h2>Galería de peluches</h2>
+<div id="galeria" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4500" data-bs-pause="false" aria-roledescription="carrusel" aria-label="Galería de peluches CuddleMe">
+  <div class="carousel-inner">
+    <div class="carousel-item active"><div class="slide" style="--s1:#FFE3EA;--s2:#F7A8B8"><img class="slide-img" data-oso="lazo" alt="Oso clásico marrón con un lazo azul en la cabeza y almohadillas en las patitas" width="176" height="211"><div><h3>Clásico con lazo</h3><p>El favorito para cumpleaños: marrón cálido, almohadillas rosas y un lazo que lo hace especial.</p></div></div></div>
+    <div class="carousel-item"><div class="slide" style="--s1:#E4F2FB;--s2:#8EC5E8"><img class="slide-img" data-oso="panda" alt="Panda con lentes y almohadillas" width="176" height="211"><div><h3>Panda estudioso</h3><p>Con lentes puestos, listo para acompañar una graduación o regalarle ánimo a alguien en exámenes.</p></div></div></div>
+    <div class="carousel-item"><div class="slide" style="--s1:#EEF6FB;--s2:#C9B6E8"><img class="slide-img" data-oso="polar" alt="Oso polar con bufanda azul y zapatitos" width="176" height="211"><div><h3>Polar con bufanda</h3><p>Pensado para abrazar en días fríos. Los zapatitos y la bufanda combinan en tono.</p></div></div></div>
+    <div class="carousel-item"><div class="slide" style="--s1:#FFF3C9;--s2:#F6C945"><img class="slide-img" data-oso="corona" alt="Oso dorado con corona y camiseta con corazón" width="176" height="211"><div><h3>Dorado con corona</h3><p>Para aniversarios y San Valentín: camiseta con corazón y corona de rey o reina.</p></div></div></div>
+    <div class="carousel-item"><div class="slide" style="--s1:#F1E8FB;--s2:#C9B6E8"><img class="slide-img" data-oso="gatito" alt="Oso lila con orejas de gatito y lentes" width="176" height="211"><div><h3>Lila con orejas de gatito</h3><p>Una mezcla divertida de oso y gatito. Las combinaciones se eligen en el personalizador de arriba.</p></div></div></div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#galeria" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Anterior</span></button>
+  <button class="carousel-control-next" type="button" data-bs-target="#galeria" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Siguiente</span></button>
+  <div class="carousel-controls-row">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#galeria" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Diapositiva 1"></button>
+      <button type="button" data-bs-target="#galeria" data-bs-slide-to="1" aria-label="Diapositiva 2"></button>
+      <button type="button" data-bs-target="#galeria" data-bs-slide-to="2" aria-label="Diapositiva 3"></button>
+      <button type="button" data-bs-target="#galeria" data-bs-slide-to="3" aria-label="Diapositiva 4"></button>
+      <button type="button" data-bs-target="#galeria" data-bs-slide-to="4" aria-label="Diapositiva 5"></button>
+    </div>
+    <button id="galeria-pausa" class="btn btn-cuddle btn-sm mt-3" type="button">Pausar</button>
+  </div>
+</div></section>
+
 <!-- Información general sobre el producto CuddleMe. -->
 <section><h2>El producto</h2>
 <dl class="facts"><dt>Nombre comercial</dt><dd>CuddleMe</dd>
@@ -131,16 +255,19 @@ html{color-scheme:light}
 <section><h2>Logotipo</h2>
 <p>El logo es la cara de un osito de peluche con mejillas sonrojadas y orejas de dos colores. Usa formas redondas y sin esquinas para transmitir suavidad y ternura, justo lo que se siente al abrazar un peluche. Los detalles azules dentro de las orejas hacen que se vea distinto de un osito genérico y se ve bien sobre fondos claros, rosas y oscuros.</p>
 <div class="logo-row"><svg width="120" height="120" aria-label="Logotipo sobre fondo claro" role="img"><use href="#logo"/></svg><svg class="pk" width="120" height="120" aria-label="Logotipo sobre fondo rosa" role="img"><use href="#logo"/></svg><svg class="dk" width="120" height="120" aria-label="Logotipo sobre fondo oscuro" role="img"><use href="#logo"/></svg></div></section>
-<!-- Colores utilizados para representar la identidad visual. -->
+<!-- Colores utilizados para representar la identidad visual (rejilla de Bootstrap). -->
 <section><h2>Paleta de colores</h2>
-<ul class="sw">
-<li><span class="chip" style="background:#F7A8B8"></span><div><strong>Rosa algodón</strong> <code>#F7A8B8</code><p>Representa ternura, cariño y dulzura. Es el color principal de la marca y evoca el afecto de un abrazo.</p></div></li>
-<li><span class="chip" style="background:#5A3A31"></span><div><strong>Café cacao</strong> <code>#5A3A31</code><p>Transmite calidez, cercanía y confianza, y recuerda al pelaje de un osito. Se usa en textos y contornos porque se lee bien sobre colores claros.</p></div></li>
-<li><span class="chip" style="background:#8EC5E8"></span><div><strong>Azul cielo</strong> <code>#8EC5E8</code><p>Se asocia con calma, seguridad e infancia. Equilibra la dulzura del rosa y da un acento fresco y diferente.</p></div></li>
-<li><span class="chip" style="background:#FFF3F6"></span><div><strong>Blanco rosado</strong> <code>#FFF3F6</code><p>Fondo muy suave que da sensación de pureza y limpieza, y deja respirar el contenido.</p></div></li></ul></section>
-</div></section><!-- Página educativa sobre JavaScript y sus conceptos básicos. -->
+<div class="row row-cols-1 row-cols-md-2 g-3">
+<div class="col"><div class="swatch"><span class="chip" style="background:#F7A8B8"></span><div><strong>Rosa algodón</strong> <code>#F7A8B8</code><p>Representa ternura, cariño y dulzura. Es el color principal de la marca y evoca el afecto de un abrazo.</p></div></div></div>
+<div class="col"><div class="swatch"><span class="chip" style="background:#5A3A31"></span><div><strong>Café cacao</strong> <code>#5A3A31</code><p>Transmite calidez, cercanía y confianza, y recuerda al pelaje de un osito. Se usa en textos y contornos porque se lee bien sobre colores claros.</p></div></div></div>
+<div class="col"><div class="swatch"><span class="chip" style="background:#8EC5E8"></span><div><strong>Azul cielo</strong> <code>#8EC5E8</code><p>Se asocia con calma, seguridad e infancia. Equilibra la dulzura del rosa y da un acento fresco y diferente.</p></div></div></div>
+<div class="col"><div class="swatch"><span class="chip" style="background:#FFF3F6"></span><div><strong>Blanco rosado</strong> <code>#FFF3F6</code><p>Fondo muy suave que da sensación de pureza y limpieza, y deja respirar el contenido.</p></div></div></div></div>
+<p class="mt-3">En el modo oscuro el fondo pasa a un café muy profundo y el texto a un rosa pálido. El rosa y el azul se mantienen iguales para que la marca se reconozca en los dos modos.</p></section>
+</div></section>
+
+<!-- Página educativa sobre JavaScript y sus conceptos básicos. -->
 <section class="vista page" id="javascript"><div class="wrap">
-<h1>JavaScript (JS vanilla)</h1>
+<div class="page-head"><div><h1>JavaScript (JS vanilla)</h1></div><img class="banner-bear" data-oso="panda" alt="" width="144" height="173"></div>
 <p class="lead">JavaScript es el lenguaje de programación de los navegadores. Se usa en el desarrollo web para que una página reaccione a lo que hace la persona: clics, teclas, formularios y datos que llegan de un servidor. "Vanilla" significa JavaScript puro, sin librerías. En CuddleMe, por ejemplo, es lo que hace que el peluche de la página de inicio cambie de color mientras eliges.</p>
 
 <h2>HTML, CSS y JS: tres capas</h2>
@@ -174,7 +301,7 @@ function darAbrazo() {                // función
 boton.addEventListener('click', darAbrazo);                                   // evento click
 boton.addEventListener('mouseover', () =&gt; boton.style.background = '#8EC5E8'); // evento hover
 boton.addEventListener('mouseout',  () =&gt; boton.style.background = '');</code></pre>
-<div class="demo"><button id="btn-abrazo" class="btn">Dar un abrazo</button> <span id="salida-abrazo" aria-live="polite">Abrazos: 0</span></div>
+<div class="demo"><button id="btn-abrazo" class="btn btn-cuddle">Dar un abrazo</button> <span id="salida-abrazo" aria-live="polite">Abrazos: 0</span></div>
 
 <h3>Cómo se lee, paso a paso</h3>
 <ol>
@@ -187,8 +314,11 @@ boton.addEventListener('mouseout',  () =&gt; boton.style.background = '');</code
 <li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript">MDN Web Docs: JavaScript</a></li>
 <li><a href="https://developer.mozilla.org/es/docs/Web/Events">MDN Web Docs: Eventos</a></li>
 <li><a href="https://www.w3schools.com/js/">W3Schools: JavaScript Tutorial</a></li></ul></section>
-</div></section><!-- Página educativa sobre la librería jQuery. -->
-<section class="vista page" id="jquery"><div class="wrap"><h1>jQuery</h1>
+</div></section>
+
+<!-- Página educativa sobre la librería jQuery. -->
+<section class="vista page" id="jquery"><div class="wrap">
+<div class="page-head"><div><h1>jQuery</h1></div><img class="banner-bear" data-oso="polar" alt="" width="144" height="173"></div>
 <p class="lead">jQuery es una librería de JavaScript lanzada en 2006. Nació porque los navegadores de esa época interpretaban el JavaScript de formas distintas, y escribir código que funcionara en todos era difícil. jQuery ofrecía una manera corta y uniforme de hacerlo, con el lema de escribir menos y hacer más.</p>
 <h2>Sintaxis básica</h2>
 <p>El símbolo <code>$</code> es la función principal de jQuery. El patrón siempre es el mismo: seleccionar un elemento y aplicarle una acción.</p>
@@ -212,12 +342,15 @@ $(&#x27;.tarjeta&#x27;).hide();                   // selecciona por clase y ocul
 $(&#x27;#btn-slide&#x27;).on(&#x27;click&#x27;, function () {
   $(&#x27;#panel&#x27;).slideToggle(400);         // la lista se desliza abierta o cerrada
 });</code></pre>
-<div class="demo"><button id="btn-fade" class="btn">fadeIn: ver mensaje</button> <button id="btn-slide" class="btn">slideToggle: ver accesorios</button>
+<div class="demo"><button id="btn-fade" class="btn btn-cuddle">fadeIn: ver mensaje</button> <button id="btn-slide" class="btn btn-cuddle">slideToggle: ver accesorios</button>
 <div id="caja" class="box">💌 “Un abrazo que puedes personalizar.”</div>
 <div id="panel" class="box alt"><strong>Accesorios disponibles:</strong> lazo, gorro de fiesta, corona, bufanda y lentes.</div></div>
-<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://api.jquery.com/">jQuery API Documentation</a></li><li><a href="https://jquery.com/">jQuery: sitio oficial</a></li><li><a href="https://www.w3schools.com/jquery/">W3Schools: jQuery Tutorial</a></li></ul></section></div></section><!-- Página educativa sobre el formato de datos JSON. -->
-<section class="vista page" id="json"><div class="wrap"><h1>JSON (JavaScript Object Notation)</h1>
-<p class="lead">JSON es un formato de texto para representar datos. Es ligero, fácil de leer para una persona y fácil de procesar para casi cualquier lenguaje de programación. Por eso es el estándar para intercambiar datos entre aplicaciones y servidores: un peluche de CuddleMe, con su nombre, color y mensaje, puede viajar como JSON del formulario a la fábrica.</p>
+<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://api.jquery.com/">jQuery API Documentation</a></li><li><a href="https://jquery.com/">jQuery: sitio oficial</a></li><li><a href="https://www.w3schools.com/jquery/">W3Schools: jQuery Tutorial</a></li></ul></section></div></section>
+
+<!-- Página educativa sobre el formato de datos JSON. -->
+<section class="vista page" id="json"><div class="wrap">
+<div class="page-head"><div><h1>JSON</h1></div><img class="banner-bear" data-oso="lazo" alt="" width="144" height="173"></div>
+<p class="lead">JSON (JavaScript Object Notation) es un formato de texto para representar datos. Es ligero, fácil de leer para una persona y fácil de procesar para casi cualquier lenguaje de programación. Por eso es el estándar para intercambiar datos entre aplicaciones y servidores: un peluche de CuddleMe, con su nombre, color y mensaje, puede viajar como JSON del formulario a la fábrica.</p>
 <h2>Estructura básica</h2>
 <ul><li><strong>Objeto:</strong> conjunto de pares clave-valor entre llaves <code>{ }</code>.</li><li><strong>Arreglo:</strong> lista ordenada de valores entre corchetes <code>[ ]</code>.</li><li><strong>Valores permitidos:</strong> texto, número, <code>true</code> o <code>false</code>, <code>null</code>, objetos y arreglos.</li><li><strong>Regla clave:</strong> las claves y los textos siempre van entre comillas dobles.</li></ul>
 <h2>Objeto de JavaScript y cadena JSON</h2>
@@ -248,7 +381,7 @@ try {
   salida.textContent = &#x27;JSON inválido: &#x27; + error.message;
 }</code></pre>
 <div class="demo"><div style="flex-basis:100%"><label for="entrada"><strong>Edita el JSON y pulsa el botón:</strong></label>
-<textarea id="entrada" rows="8">{
+<textarea id="entrada" class="form-control" rows="8">{
   &quot;nombre&quot;: &quot;Osito&quot;,
   &quot;color&quot;: &quot;rosa&quot;,
   &quot;accesorios&quot;: [&quot;lazo&quot;, &quot;gorro&quot;],
@@ -256,13 +389,16 @@ try {
   &quot;mensaje&quot;: &quot;Te quiero mucho&quot;,
   &quot;personalizado&quot;: true
 }</textarea></div>
-<button id="btn-json" class="btn">Convertir con JSON.parse</button> <span id="salida" aria-live="polite"></span></div>
+<button id="btn-json" class="btn btn-cuddle">Convertir con JSON.parse</button> <span id="salida" aria-live="polite"></span></div>
 <h2>Cómo lo usan las aplicaciones web</h2>
 <p>Cuando una página necesita datos (por ejemplo, el estado de un pedido), el navegador envía una petición a un servidor o a una API. El servidor responde con texto en formato JSON, y el código de la página lo convierte en objetos para mostrarlo en pantalla. También funciona al revés: al enviar el formulario de personalización, la página manda los datos del peluche como JSON.</p>
 <pre><code>fetch(&#x27;https://api.ejemplo.com/pedidos/1&#x27;)
   .then(respuesta =&gt; respuesta.json())      // lee la respuesta como JSON
-  .then(datos =&gt; console.log(datos.peluche.nombre));</code></pre><section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON">MDN: JSON</a></li><li><a href="https://www.json.org/json-es.html">JSON.org (especificación)</a></li><li><a href="https://www.w3schools.com/js/js_json_intro.asp">W3Schools: JSON Tutorial</a></li></ul></section></div></section><!-- Página educativa sobre hosting, dominios y DNS. -->
-<section class="vista page" id="hosting"><div class="wrap"><h1>Web hosting y dominios</h1>
+  .then(datos =&gt; console.log(datos.peluche.nombre));</code></pre><section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON">MDN: JSON</a></li><li><a href="https://www.json.org/json-es.html">JSON.org (especificación)</a></li><li><a href="https://www.w3schools.com/js/js_json_intro.asp">W3Schools: JSON Tutorial</a></li></ul></section></div></section>
+
+<!-- Página educativa sobre hosting, dominios y DNS. -->
+<section class="vista page" id="hosting"><div class="wrap">
+<div class="page-head"><div><h1>Web hosting y dominios</h1></div><img class="banner-bear" data-oso="corona" alt="" width="144" height="173"></div>
 <p class="lead">Una página web es un conjunto de archivos. Para que otras personas la vean, esos archivos deben estar en un servidor conectado a internet (hosting), y alguien debe poder encontrarlos con un nombre fácil de recordar (dominio).</p>
 <h2>Web hosting</h2>
 <p>El hosting es el servicio que guarda tus archivos en un servidor que está encendido todo el tiempo y los entrega a quien los pida.</p>
@@ -281,13 +417,59 @@ try {
 <p>El DNS es la "guía telefónica" de internet: traduce dominios a direcciones IP. Así ocurre una consulta:</p>
 <ol class="flow"><li>Escribes <code>tienda.cuddleme.com</code> en el navegador.</li><li>El navegador y el sistema operativo buscan la IP en su memoria (caché). Si no la tienen, preguntan al resolver DNS de tu proveedor de internet.</li><li>El resolver consulta a un servidor raíz, que lo envía al servidor del TLD (<code>.com</code>).</li><li>El servidor del TLD indica cuál es el servidor DNS autoritativo del dominio, que guarda los registros reales.</li><li>El servidor autoritativo responde con la dirección IP del hosting.</li><li>El navegador se conecta a esa IP y recibe la página. La respuesta queda en caché por un tiempo.</li></ol>
 <p>Cuando cambias un registro DNS (por ejemplo, apuntar tu dominio a Vercel), los servidores del mundo no se enteran al instante: cada uno guarda la respuesta anterior hasta que vence su TTL (tiempo de vida). A ese reparto gradual se le llama <strong>propagación</strong> y puede tardar desde minutos hasta 48 horas.</p>
-<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://vercel.com/docs">Vercel Docs</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/DNS">MDN: DNS (glosario)</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/TLD">MDN: TLD (glosario)</a></li><li><a href="https://www.w3schools.com/whatis/whatis_hosting.asp">W3Schools: Web Hosting</a></li></ul></section></div></section><!-- Cuestionario interactivo para evaluar los conocimientos del sitio. -->
-<section class="vista page" id="cuestionario"><div class="wrap"><h1>Cuestionario web</h1>
-<p class="lead">Diez preguntas basadas en las páginas de este sitio. Elige una respuesta en cada una para ver al instante si es correcta. Si te equivocas, lee la explicación y repasa la página correspondiente.</p>
+<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://vercel.com/docs">Vercel Docs</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/DNS">MDN: DNS (glosario)</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/TLD">MDN: TLD (glosario)</a></li><li><a href="https://www.w3schools.com/whatis/whatis_hosting.asp">W3Schools: Web Hosting</a></li></ul></section></div></section>
+
+<!-- NUEVA página: 15 herramientas de IA de Google con nivel gratuito. Las tarjetas se generan con JavaScript. -->
+<section class="vista page" id="ia"><div class="wrap">
+<div class="page-head"><div><h1>15 IA de Google</h1></div><img class="banner-bear" data-oso="gatito" alt="" width="144" height="173"></div>
+<p class="lead">Google ofrece herramientas de inteligencia artificial que puedes probar sin pagar con una cuenta personal. Aquí están 15, agrupadas por lo que te ayudan a hacer. Pulsa "Cómo se usa" en cada una para ver los pasos y una idea aplicada a CuddleMe.</p>
+<h2>Cómo elegimos las herramientas</h2>
+<ul>
+<li><strong>Nivel gratuito real:</strong> todas se pueden empezar a usar sin tarjeta, aunque con límites diarios o de uso.</li>
+<li><strong>Utilidad para el proyecto:</strong> cada una tiene una idea concreta para una tienda de peluches personalizados.</li>
+<li><strong>Variedad:</strong> hay herramientas para estudiar, para crear contenido y para programar, porque un sitio web necesita las tres cosas.</li></ul>
+<div class="filtros" role="group" aria-label="Filtrar herramientas">
+  <button type="button" class="btn btn-cuddle btn-sm" data-filtro="todas" aria-pressed="true">Todas</button>
+  <button type="button" class="btn btn-cuddle btn-sm" data-filtro="Estudio" aria-pressed="false">Estudio</button>
+  <button type="button" class="btn btn-cuddle btn-sm" data-filtro="Creatividad" aria-pressed="false">Creatividad</button>
+  <button type="button" class="btn btn-cuddle btn-sm" data-filtro="Desarrollo" aria-pressed="false">Desarrollo</button>
+  <label class="visually-hidden" for="buscar">Buscar herramienta</label>
+  <input id="buscar" class="form-control form-control-sm" type="search" placeholder="Buscar herramienta">
+</div>
+<p id="conteo" aria-live="polite" class="fw-bold"></p>
+<div id="herramientas" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+<p id="vacio" class="nota-pie" hidden>No hay herramientas con ese nombre. Borra la búsqueda o elige otra categoría.</p>
+<div class="nota-pie"><strong>Antes de usarlas:</strong> los límites gratuitos y los países disponibles cambian con frecuencia, y varias herramientas de Google Labs son experimentos. Revisa el enlace oficial de cada una. Dejamos fuera Whisk, porque según lo investigado Google movió sus funciones a Flow en 2026.</div>
+<section class="bib"><h2>Recursos y bibliografía</h2><ul>
+<li><a href="https://labs.google/">Google Labs</a></li>
+<li><a href="https://blog.google/products-and-platforms/products/education/back-to-school-2026/">Google: Back to School 2026</a></li>
+<li><a href="https://aistudio.google.com/">Google AI Studio</a></li></ul></section>
+</div></section>
+
+<!-- Cuestionario interactivo para evaluar los conocimientos del sitio. -->
+<section class="vista page" id="cuestionario"><div class="wrap"><h1 class="mt-4">Cuestionario web</h1>
+<p class="lead">Doce preguntas basadas en las páginas de este sitio. Elige una respuesta en cada una para ver al instante si es correcta. Si te equivocas, lee la explicación y repasa la página correspondiente.</p>
 <div id="quiz"></div><div id="resultado" class="result" aria-live="polite" hidden></div>
-<button id="reiniciar" class="btn" hidden>Intentar de nuevo</button></div></section></main>
+<button id="reiniciar" class="btn btn-cuddle" hidden>Intentar de nuevo</button></div></section></main>
+
+<!-- Ventana modal de Bootstrap: muestra el detalle de la herramienta elegida. -->
+<div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalTitulo" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header"><h2 class="modal-title" id="modalTitulo"></h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+      <div class="modal-body" id="modalCuerpo"></div>
+      <div class="modal-footer"><a id="modalLink" class="btn btn-cuddle" href="#" target="_blank" rel="noopener">Abrir herramienta</a><button type="button" class="btn btn-cuddle" data-bs-dismiss="modal">Cerrar</button></div>
+    </div>
+  </div>
+</div>
+
+<button id="subir" class="subir" type="button" aria-label="Volver arriba">↑</button>
+
 <!-- Pie de página con información del proyecto académico. -->
 <footer><p>CuddleMe es una marca creada para un proyecto académico de desarrollo web.</p></footer>
+
+<!-- Bootstrap JS (carrusel, menú plegable y modal). -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 /* ==================== CONFIGURACIÓN DEL PERSONALIZADOR ==================== */
 // Tipos de osos disponibles y sus características visuales.
@@ -309,8 +491,17 @@ const CABEZA = [['', 'Nada'], ['lazo', 'Lazo'], ['gorro', 'Gorro de fiesta'], ['
 const ROPA = [['', 'Sin ropa'], ['camiseta', 'Camiseta']];
 // Estado inicial del personalizador.
 const INICIO = { tipo: 'clasico', color: '#B07A4F', orejas: 'redondas', patitas: 'normales', cabeza: '', ropa: '', lentes: false, bufanda: false };
-let estado = Object.assign({}, INICIO); // Restablece el objeto de configuración. // Copia el estado inicial para poder modificarlo.
-const ctrl = document.getElementById('ctrl'), escena = document.getElementById('escena'); // Referencias a los elementos donde se crean controles y dibujo.
+// Peluches prediseñados que se usan como imágenes en el carrusel y en los encabezados.
+const PRESETS = {
+  lazo:   { tipo: 'clasico', color: '#B07A4F', orejas: 'redondas', patitas: 'almohadillas', cabeza: 'lazo',   ropa: '',         lentes: false, bufanda: false },
+  panda:  { tipo: 'panda',   color: '#FFFFFF', orejas: 'redondas', patitas: 'almohadillas', cabeza: '',       ropa: '',         lentes: true,  bufanda: false },
+  polar:  { tipo: 'polar',   color: '#FFFFFF', orejas: 'pequenas', patitas: 'zapatitos',    cabeza: '',       ropa: '',         lentes: false, bufanda: true  },
+  corona: { tipo: 'miel',    color: '#E8B04A', orejas: 'grandes',  patitas: 'normales',     cabeza: 'corona', ropa: 'camiseta', lentes: false, bufanda: false },
+  gorro:  { tipo: 'clasico', color: '#F7A8B8', orejas: 'redondas', patitas: 'grandes',      cabeza: 'gorro',  ropa: 'camiseta', lentes: false, bufanda: false },
+  gatito: { tipo: 'clasico', color: '#C9B6E8', orejas: 'gatito',   patitas: 'normales',     cabeza: '',       ropa: '',         lentes: true,  bufanda: false }
+};
+let estado = Object.assign({}, INICIO); // Copia el estado inicial para poder modificarlo.
+const ctrl = document.getElementById('ctrl'), escena = document.getElementById('escena');
 const nombreIn = document.getElementById('nombre'), msgIn = document.getElementById('msg');
 
 // Crea grupos de opciones para que el usuario pueda personalizar el peluche.
@@ -327,7 +518,7 @@ function grupo(titulo, clave, lista, esColor) {
 
 // Construye dinámicamente los controles del personalizador dentro del HTML.
 function construir() {
-  ctrl.innerHTML = // Inserta en pantalla las opciones de personalización.
+  ctrl.innerHTML =
     grupo('Tipo de oso', 'tipo', Object.keys(TIPOS).map(function (k) { return [k, TIPOS[k].n]; })) +
     grupo('Color', 'color', COLORES, true) +
     grupo('Orejas', 'orejas', OREJAS) +
@@ -346,9 +537,9 @@ function pad(x, y) {
     '<circle cx="' + (x - 9) + '" cy="' + (y - 6) + '" r="3.5" fill="' + r + '"/><circle cx="' + x + '" cy="' + (y - 9) + '" r="3.5" fill="' + r + '"/><circle cx="' + (x + 9) + '" cy="' + (y - 6) + '" r="3.5" fill="' + r + '"/>';
 }
 
-// Genera el dibujo SVG del peluche según las opciones seleccionadas.
-function dibujar() {
-  const e = estado, t = TIPOS[e.tipo], K = '#5A3A31', D = '#2B2B2B', panda = e.tipo === 'panda';
+// Genera las formas SVG del peluche según un estado (se reutiliza en el personalizador, el carrusel y los encabezados).
+function cuerpoSVG(e) {
+  const t = TIPOS[e.tipo], K = '#5A3A31', D = '#2B2B2B', panda = e.tipo === 'panda';
   const acc = e.color === '#8EC5E8' ? '#F7A8B8' : '#8EC5E8';
   const trazo = ' stroke="' + K + '" stroke-width="3" stroke-linejoin="round"';
   const piel = 'fill="' + e.color + '"' + trazo;
@@ -391,11 +582,23 @@ function dibujar() {
   if (e.cabeza === 'lazo') s += '<path d="M134 46L112 34V58ZM134 46L156 34V58Z" fill="' + acc + '"' + trazo + '/><circle cx="134" cy="46" r="6" fill="#fff"' + trazo + '/>';
   if (e.cabeza === 'gorro') s += '<path d="M100 2L70 54H130Z" fill="' + acc + '"' + trazo + '/><path d="M86 30H114" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="100" cy="4" r="7" fill="#fff"' + trazo + '/>';
   if (e.cabeza === 'corona') s += '<path d="M70 54L74 20L88 36L100 12L112 36L126 20L130 54Z" fill="#F6C945"' + trazo + '/><circle cx="100" cy="40" r="4" fill="#F7A8B8"/>';
+  return s;
+}
 
-  escena.innerHTML = '<svg viewBox="0 0 200 240" role="img" aria-label="Peluche ' + t.n + '">' + s + '</svg>';
+// Dibuja el peluche del personalizador y actualiza el nombre y el mensaje.
+function dibujar() {
+  escena.innerHTML = '<svg viewBox="0 0 200 240" role="img" aria-label="Peluche ' + TIPOS[estado.tipo].n + '">' + cuerpoSVG(estado) + '</svg>';
   document.getElementById('hola').textContent = nombreIn.value.trim() ? 'Hola, soy ' + nombreIn.value.trim() : 'Ponle nombre a tu peluche';
   document.getElementById('nota').textContent = msgIn.value.trim() || 'Aquí aparecerá tu mensaje especial.';
 }
+
+// Convierte un peluche prediseñado en una imagen SVG (data URI) para usarla dentro de <img>.
+function imagenOso(nombre) {
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">' + cuerpoSVG(PRESETS[nombre]) + '</svg>';
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+// Asigna la imagen a cada <img data-oso="...">.
+document.querySelectorAll('img[data-oso]').forEach(function (img) { img.src = imagenOso(img.dataset.oso); });
 
 // Detecta los cambios realizados en las opciones de personalización.
 ctrl.addEventListener('change', function (ev) {
@@ -410,9 +613,7 @@ ctrl.addEventListener('change', function (ev) {
   }
   dibujar();
 });
-// Actualiza el peluche mientras se escribe su nombre.
 nombreIn.addEventListener('input', dibujar);
-// Actualiza el mensaje especial mientras se escribe.
 msgIn.addEventListener('input', dibujar);
 // Restaura todas las opciones del peluche a sus valores iniciales.
 document.getElementById('reset').addEventListener('click', function () {
@@ -420,12 +621,10 @@ document.getElementById('reset').addEventListener('click', function () {
   nombreIn.value = ''; msgIn.value = '';
   construir(); dibujar();
 });
-// Carga inicialmente los controles y dibuja el peluche.
 construir();
 dibujar();
 
-
-
+/* ==================== EJEMPLO DE JAVASCRIPT: CONTADOR DE ABRAZOS ==================== */
 const boton = document.getElementById('btn-abrazo');
 const salida = document.getElementById('salida-abrazo');
 let abrazos = 0;
@@ -436,7 +635,6 @@ function darAbrazo() {
 boton.addEventListener('click', darAbrazo);
 boton.addEventListener('mouseover', () => boton.style.background = '#8EC5E8');
 boton.addEventListener('mouseout', () => boton.style.background = '');
-
 
 /* ==================== EJEMPLOS DE ANIMACIÓN ==================== */
 const btnFade = document.getElementById('btn-fade');
@@ -462,18 +660,166 @@ document.getElementById('btn-slide').addEventListener('click', function () {
   panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
 });
 
-
 /* ==================== EJEMPLO DE JSON ==================== */
 // Valida y procesa el JSON escrito por el usuario.
 document.getElementById('btn-json').addEventListener('click', function () {
-  const salida = document.getElementById('salida');
-const texto = document.getElementById('entrada').value;
-try {
-  const objeto = JSON.parse(texto);   // cadena JSON -> objeto JS
-  salida.textContent = 'Válido. El peluche se llama ' + objeto.nombre;
-} catch (error) {
-  salida.textContent = 'JSON inválido: ' + error.message;
+  const salidaJson = document.getElementById('salida');
+  const texto = document.getElementById('entrada').value;
+  try {
+    const objeto = JSON.parse(texto);   // cadena JSON -> objeto JS
+    salidaJson.textContent = 'Válido. El peluche se llama ' + objeto.nombre;
+  } catch (error) {
+    salidaJson.textContent = 'JSON inválido: ' + error.message;
+  }
+});
+
+/* ==================== CARRUSEL (Bootstrap, crossfade) ==================== */
+// El carrusel avanza solo; este botón permite pausarlo y reanudarlo (accesibilidad).
+const galeria = bootstrap.Carousel.getOrCreateInstance('#galeria');
+const btnPausa = document.getElementById('galeria-pausa');
+let enPausa = false;
+function ponerPausa(valor) {
+  enPausa = valor;
+  if (enPausa) galeria.pause(); else galeria.cycle();
+  btnPausa.textContent = enPausa ? 'Reanudar' : 'Pausar';
 }
+btnPausa.addEventListener('click', function () { ponerPausa(!enPausa); });
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) ponerPausa(true); // respeta a quien prefiere menos movimiento
+
+/* ==================== PÁGINA: 15 HERRAMIENTAS DE IA DE GOOGLE ==================== */
+// Cada herramienta tiene categoría, descripción, pasos de uso y una idea para CuddleMe.
+const HERRAMIENTAS = [
+  { id: 'gemini', n: 'Gemini', e: '✨', cat: 'Estudio', g: ['#FFE3EA', '#F7A8B8'], url: 'https://gemini.google.com/',
+    d: 'El asistente de IA de Google: conversa, resume, traduce, explica y ayuda a escribir.',
+    pasos: ['Entra a gemini.google.com con tu cuenta de Google.', 'Escribe lo que necesitas con detalle: quién eres, qué quieres y en qué formato.', 'Pide mejoras en la misma conversación ("hazlo más corto", "explícalo con un ejemplo").', 'Prueba funciones como Deep Research para investigar un tema con fuentes.'],
+    limite: 'El nivel gratuito tiene límites de uso y, según lo investigado, desde el 9 de octubre de 2026 usa el modelo Flash-Lite; los modelos más potentes quedan para los planes de pago.',
+    idea: 'Pedirle ideas de nombres y mensajes de tarjeta para cada tipo de ocasión: cumpleaños, graduación o San Valentín.' },
+  { id: 'notebook', n: 'Gemini Notebook (NotebookLM)', e: '📓', cat: 'Estudio', g: ['#E4F2FB', '#8EC5E8'], url: 'https://notebooklm.google.com/',
+    d: 'Responde solo con tus propios documentos y cita de dónde sacó cada dato.',
+    pasos: ['Crea un cuaderno nuevo.', 'Sube tus fuentes: PDF, documentos de Google, enlaces o texto.', 'Haz preguntas y revisa las citas que apuntan a la fuente original.', 'Genera un resumen en audio, un cuestionario o una guía de estudio.'],
+    limite: 'Es gratis con cuenta de Google. Los planes de pago aumentan los límites, por ejemplo los resúmenes de audio.',
+    idea: 'Subir la descripción del producto y las políticas de envío para generar una lista de preguntas frecuentes sin inventar datos.' },
+  { id: 'learn', n: 'Learn Your Way', e: '🎓', cat: 'Estudio', g: ['#F1E8FB', '#C9B6E8'], url: 'https://learnyourway.withgoogle.com/',
+    d: 'Convierte un texto o tema en una lección adaptada a tus intereses, con audio, quizzes y mapas mentales.',
+    pasos: ['Abre la herramienta e inicia sesión con tu cuenta de Google.', 'Sube un material o elige uno de ejemplo.', 'Indica tu nivel y tus intereses para que adapte los ejemplos.', 'Estudia con la lección, escucha la versión en audio y responde los cuestionarios.'],
+    limite: 'Es un experimento de Google Labs. Puede cambiar o no estar disponible en todos los países.',
+    idea: 'Transformar los apuntes de esta página (JavaScript, JSON y DNS) en una lección con quiz para repasar antes del examen.' },
+  { id: 'teachable', n: 'Teachable Machine', e: '🤖', cat: 'Estudio', g: ['#EAF6EC', '#9AD3AA'], url: 'https://teachablemachine.withgoogle.com/',
+    d: 'Entrena un modelo de IA con tu cámara o tus archivos, sin escribir código.',
+    pasos: ['Elige un proyecto: imágenes, audio o poses.', 'Crea clases (por ejemplo "oso panda" y "oso polar") y sube o graba ejemplos de cada una.', 'Pulsa "Entrenar modelo" y espera unos segundos.', 'Prueba el modelo en vivo y expórtalo para usarlo en una página web.'],
+    limite: 'Es gratis y funciona en el navegador.',
+    idea: 'Entrenar un modelo que reconozca el tipo de oso desde una foto y sugiera accesorios.' },
+  { id: 'flow', n: 'Google Flow', e: '🎬', cat: 'Creatividad', g: ['#FFF3C9', '#F6C945'], url: 'https://labs.google/flow',
+    d: 'Estudio de IA para crear videos e imágenes a partir de descripciones y unir varias escenas.',
+    pasos: ['Entra con tu cuenta de Google y crea un proyecto nuevo.', 'Describe la escena con detalle: personaje, lugar, luz y movimiento.', 'Genera el clip y elige la mejor versión.', 'Encadena varios clips para armar una historia corta.'],
+    limite: 'Usa créditos diarios gratuitos que no se acumulan, según lo investigado. Los planes de pago agregan más.',
+    idea: 'Hacer un video corto de un peluche que cobra vida para el banner del sitio.' },
+  { id: 'flowmusic', n: 'Flow Music', e: '🎵', cat: 'Creatividad', g: ['#FDE3F0', '#F28FA6'], url: 'https://labs.google/',
+    d: 'Estudio de música donde conversas con una productora virtual para crear canciones.',
+    pasos: ['Abre Flow Music desde Google Labs (si está disponible en tu país).', 'Cuéntale el estilo, el ánimo y de qué trata la canción.', 'Escucha el resultado y pide cambios: más lento, otra voz, otro estribillo.', 'Descarga la pista final.'],
+    limite: 'Tiene créditos diarios gratuitos y su uso gratuito es no comercial.',
+    idea: 'Crear una melodía corta de cuna para el video de presentación de CuddleMe.' },
+  { id: 'pomelli', n: 'Pomelli', e: '📣', cat: 'Creatividad', g: ['#FFE9D6', '#FFB88A'], url: 'https://labs.google/pomelli',
+    d: 'Lee tu sitio web, aprende el estilo de tu marca y genera publicaciones para redes sociales.',
+    pasos: ['Entra a Pomelli e ingresa la dirección de tu sitio.', 'Revisa el perfil de marca que genera: colores, tipografía y tono.', 'Pídele ideas de campaña y elige las que te gusten.', 'Edita los textos e imágenes y descárgalos.'],
+    limite: 'Está en beta gratuita. La disponibilidad por país cambia.',
+    idea: 'Generar publicaciones de San Valentín con la paleta rosa y cacao de CuddleMe.' },
+  { id: 'stitch', n: 'Stitch', e: '🖌️', cat: 'Creatividad', g: ['#E4F2FB', '#B9DDF3'], url: 'https://stitch.withgoogle.com/',
+    d: 'Diseña pantallas de apps y sitios a partir de texto o bocetos, y exporta el código.',
+    pasos: ['Entra a stitch.withgoogle.com.', 'Describe la pantalla: "tienda de peluches, fondo rosa, tarjetas redondas".', 'Ajusta colores y diseño con nuevas instrucciones.', 'Copia el HTML y CSS generado o expórtalo a una herramienta de diseño.'],
+    limite: 'Gratis mientras esté en Google Labs.',
+    idea: 'Probar un rediseño de la página de inicio y comparar ideas antes de programar.' },
+  { id: 'disco', n: 'Disco (GenTabs)', e: '🗂️', cat: 'Creatividad', g: ['#EEF6FB', '#C9B6E8'], url: 'https://labs.google/disco',
+    d: 'Experimento de Google Labs que convierte tus pestañas abiertas en pequeñas apps interactivas.',
+    pasos: ['Instala o abre Disco desde Google Labs si está disponible para tu cuenta.', 'Abre varias pestañas sobre un mismo tema.', 'Pídele que arme una app con esa información: un comparador, un plan de viaje o una lista.', 'Ajusta la app con instrucciones y compártela.'],
+    limite: 'Es un experimento con acceso limitado; puede requerir lista de espera.',
+    idea: 'Comparar en una sola vista varios materiales de peluches seguros para bebés.' },
+  { id: 'aistudio', n: 'Google AI Studio', e: '🧪', cat: 'Desarrollo', g: ['#E4F2FB', '#8EC5E8'], url: 'https://aistudio.google.com/',
+    d: 'Laboratorio para probar los modelos Gemini, obtener una clave de API y crear prototipos de apps.',
+    pasos: ['Entra a aistudio.google.com con tu cuenta.', 'Escribe un prompt y elige el modelo.', 'Ajusta parámetros como la creatividad (temperatura).', 'Pulsa "Get API key" para usar el modelo desde tu propio código.'],
+    limite: 'Tiene un nivel gratuito con límites de peticiones por minuto y por día.',
+    idea: 'Prototipar un asistente que recomiende un peluche según la ocasión y el presupuesto.' },
+  { id: 'opal', n: 'Opal', e: '🧩', cat: 'Desarrollo', g: ['#F1E8FB', '#C9B6E8'], url: 'https://opal.google/',
+    d: 'Crea mini apps de IA sin programar: describes el flujo y Opal lo arma como diagrama.',
+    pasos: ['Abre Opal e inicia sesión.', 'Describe tu app: "recibe un nombre y una ocasión y escribe un mensaje de tarjeta".', 'Revisa el flujo visual y cambia los pasos que quieras.', 'Publica la app y comparte el enlace.'],
+    limite: 'Es un experimento gratuito de Google Labs; su disponibilidad depende del país.',
+    idea: 'Una mini app que escriba el mensaje especial de la tarjeta del peluche.' },
+  { id: 'jules', n: 'Jules', e: '🛠️', cat: 'Desarrollo', g: ['#EAF6EC', '#9AD3AA'], url: 'https://jules.google/',
+    d: 'Agente de programación que trabaja en segundo plano: lee tu repositorio, hace cambios y abre un pull request.',
+    pasos: ['Entra a jules.google e inicia sesión.', 'Conecta tu cuenta de GitHub y elige el repositorio.', 'Escribe la tarea: "agrega un botón de modo oscuro".', 'Revisa el plan y el pull request antes de aceptar los cambios.'],
+    limite: 'El nivel gratuito permite un número limitado de tareas por día (según lo investigado, alrededor de 15).',
+    idea: 'Pedirle que revise el repositorio de este proyecto y proponga mejoras de accesibilidad.' },
+  { id: 'geminicli', n: 'Gemini CLI', e: '⌨️', cat: 'Desarrollo', g: ['#E9E4DE', '#B9A99A'], url: 'https://github.com/google-gemini/gemini-cli',
+    d: 'Asistente de Gemini dentro de la terminal para explicar, escribir y corregir código.',
+    pasos: ['Instala Node.js y ejecuta el comando de instalación que aparece en el repositorio oficial.', 'Escribe gemini en la terminal dentro de la carpeta de tu proyecto.', 'Inicia sesión con tu cuenta de Google cuando lo pida.', 'Pregunta cosas como "explica cómo funciona el personalizador" o "corrige este error".'],
+    limite: 'Es de código abierto y su uso gratuito tiene límites de peticiones.',
+    idea: 'Pedirle que explique cada parte del código del sitio para preparar la exposición.' },
+  { id: 'codeassist', n: 'Gemini Code Assist', e: '👩‍💻', cat: 'Desarrollo', g: ['#FFF3C9', '#F9DE8A'], url: 'https://codeassist.google/',
+    d: 'Asistente que autocompleta código y responde dudas dentro de VS Code y otros editores.',
+    pasos: ['Instala la extensión de Gemini Code Assist en tu editor.', 'Inicia sesión con tu cuenta de Google.', 'Escribe un comentario o una función y acepta las sugerencias con la tecla Tab.', 'Abre el chat del editor para preguntar sobre tu código.'],
+    limite: 'Tiene un nivel gratuito para uso individual, con límites diarios.',
+    idea: 'Autocompletar las funciones repetidas del personalizador y generar comentarios.' },
+  { id: 'colab', n: 'Google Colab con Gemini', e: '📊', cat: 'Desarrollo', g: ['#FFE9D6', '#FFC58F'], url: 'https://colab.research.google.com/',
+    d: 'Cuadernos de Python en el navegador, con ayuda de Gemini para escribir y explicar el código.',
+    pasos: ['Entra a colab.research.google.com y crea un cuaderno nuevo.', 'Sube un archivo de datos, por ejemplo un CSV de pedidos.', 'Pide a Gemini el código: "muestra cuántos peluches se vendieron por color".', 'Ejecuta la celda y revisa el gráfico o la tabla.'],
+    limite: 'Es gratis con recursos de cómputo limitados.',
+    idea: 'Analizar qué colores y accesorios se eligen más para decidir qué fabricar.' }
+];
+
+const grid = document.getElementById('herramientas');
+const conteo = document.getElementById('conteo');
+const vacio = document.getElementById('vacio');
+const buscar = document.getElementById('buscar');
+let filtro = 'todas';
+
+// Crea las tarjetas de Bootstrap para cada herramienta.
+grid.innerHTML = HERRAMIENTAS.map(function (h) {
+  return '<div class="col" data-cat="' + h.cat + '" data-texto="' + (h.n + ' ' + h.d + ' ' + h.cat).toLowerCase() + '">' +
+    '<article class="card tool h-100">' +
+    '<div class="tool-banner" style="--g1:' + h.g[0] + ';--g2:' + h.g[1] + '" aria-hidden="true">' + h.e + '</div>' +
+    '<div class="card-body d-flex flex-column"><span class="cat cat-' + h.cat.toLowerCase() + '">' + h.cat + '</span>' +
+    '<h3>' + h.n + '</h3><p>' + h.d + '</p>' +
+    '<button type="button" class="btn btn-cuddle btn-sm mt-auto" data-id="' + h.id + '">Cómo se usa</button></div></article></div>';
+}).join('');
+
+// Muestra u oculta tarjetas según la categoría y el texto buscado.
+function aplicarFiltros() {
+  const q = buscar.value.trim().toLowerCase();
+  let visibles = 0;
+  grid.querySelectorAll('.col').forEach(function (c) {
+    const ok = (filtro === 'todas' || c.dataset.cat === filtro) && (!q || c.dataset.texto.indexOf(q) !== -1);
+    const estabaOculta = c.classList.contains('d-none');
+    c.classList.toggle('d-none', !ok);
+    if (ok) { visibles++; if (estabaOculta) { c.classList.remove('pop'); void c.offsetWidth; c.classList.add('pop'); } }
+  });
+  conteo.textContent = 'Mostrando ' + visibles + ' de ' + HERRAMIENTAS.length + ' herramientas';
+  vacio.hidden = visibles !== 0;
+}
+document.querySelectorAll('[data-filtro]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    filtro = b.dataset.filtro;
+    document.querySelectorAll('[data-filtro]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    aplicarFiltros();
+  });
+});
+buscar.addEventListener('input', aplicarFiltros);
+aplicarFiltros();
+
+// Abre la ventana modal con los pasos de la herramienta elegida.
+const modalEl = document.getElementById('modalIA');
+const modalIA = bootstrap.Modal.getOrCreateInstance(modalEl);
+grid.addEventListener('click', function (ev) {
+  const b = ev.target.closest('button[data-id]');
+  if (!b) return;
+  const h = HERRAMIENTAS.find(function (x) { return x.id === b.dataset.id; });
+  document.getElementById('modalTitulo').textContent = h.e + ' ' + h.n;
+  document.getElementById('modalCuerpo').innerHTML =
+    '<span class="cat cat-' + h.cat.toLowerCase() + ' mb-2">' + h.cat + '</span>' +
+    '<p>' + h.d + '</p><h3>Cómo se usa</h3><ol>' + h.pasos.map(function (p) { return '<li>' + p + '</li>'; }).join('') + '</ol>' +
+    '<p><strong>Límites del nivel gratuito:</strong> ' + h.limite + '</p>' +
+    '<div class="idea"><strong>En CuddleMe:</strong> ' + h.idea + '</div>';
+  document.getElementById('modalLink').href = h.url;
+  modalIA.show();
 });
 
 /* ==================== CUESTIONARIO ==================== */
@@ -488,7 +834,9 @@ const preguntas = [
   { t: "En JSON, ¿cómo deben escribirse las claves?", o: ["Sin comillas", "Con comillas simples", "Con comillas dobles", "Entre paréntesis"], c: 2, x: "JSON exige comillas dobles en claves y textos." },
   { t: "¿Qué hace JSON.parse?", o: ["Convierte un objeto en texto", "Convierte una cadena JSON en un objeto", "Envía datos al servidor", "Borra un objeto"], c: 1, x: "parse convierte texto JSON en un objeto de JavaScript; stringify hace lo contrario." },
   { t: "Con un repositorio de GitHub conectado a Vercel, ¿qué ocurre al hacer git push?", o: ["Nada hasta pagar el dominio", "Vercel despliega el sitio de nuevo automáticamente", "El repositorio se borra", "El sitio pasa a ser privado"], c: 1, x: "Vercel detecta el push y publica la nueva versión sin pasos manuales." },
-  { t: "En tienda.cuddleme.com, ¿cuál es el TLD?", o: [".com", "cuddleme", "tienda", ".tienda.cuddleme"], c: 0, x: "El TLD es el final del dominio (.com). 'tienda' es el subdominio y 'cuddleme' el nombre del dominio." }
+  { t: "En tienda.cuddleme.com, ¿cuál es el TLD?", o: [".com", "cuddleme", "tienda", ".tienda.cuddleme"], c: 0, x: "El TLD es el final del dominio (.com). 'tienda' es el subdominio y 'cuddleme' el nombre del dominio." },
+  { t: "¿Qué clase de Bootstrap hace que el carrusel cambie de imagen con un efecto de desvanecimiento (crossfade)?", o: ["carousel-fade", "carousel-slide", "fade-in", "carousel-dark"], c: 0, x: "Se agrega carousel-fade junto a las clases carousel slide del contenedor." },
+  { t: "¿Para qué sirve Gemini Notebook (NotebookLM)?", o: ["Para programar tareas en GitHub", "Para responder con tus propios documentos y citar las fuentes", "Para componer música", "Para registrar dominios"], c: 1, x: "Trabaja sobre las fuentes que subes y muestra de dónde sale cada respuesta." }
 ];
 const cont = document.getElementById('quiz'), res = document.getElementById('resultado'), otra = document.getElementById('reiniciar');
 let aciertos = 0, hechas = 0;
@@ -502,7 +850,7 @@ function pintar() {
       p.o.map(function (txt, j) { return '<label><input type="radio" name="p' + i + '" value="' + j + '"> ' + txt + '</label>'; }).join('') +
       '<p class="fb" aria-live="polite"></p>';
     f.addEventListener('change', function (ev) {
-      const elegida = Number(ev.target.value), labels = f.querySelectorAll('label'); // Obtiene la respuesta elegida y sus opciones.
+      const elegida = Number(ev.target.value), labels = f.querySelectorAll('label');
       f.querySelectorAll('input').forEach(function (r) { r.disabled = true; });
       labels[p.c].classList.add('right');
       const ok = elegida === p.c;
@@ -513,30 +861,87 @@ function pintar() {
       if (hechas === preguntas.length) {
         res.textContent = 'Tu resultado: ' + aciertos + ' de ' + preguntas.length;
         res.hidden = false; otra.hidden = false;
+        res.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
     cont.appendChild(f);
   });
 }
 // Reinicia el cuestionario y vuelve al inicio de la página.
-otra.addEventListener('click', function () { pintar(); window.scrollTo(0, 0); });
+otra.addEventListener('click', function () { pintar(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 pintar();
-</script>
-<script>
-/* ==================== NAVEGACIÓN ENTRE SECCIONES ==================== */
-// Controla la navegación mediante enlaces con hash (#) sin recargar la página.
-(function(){
-  var vistas=document.querySelectorAll('.vista'), links=document.querySelectorAll('header nav a');
-  // Muestra la sección correspondiente al enlace seleccionado.
-function ir(){
-    var id=(location.hash||'#inicio').slice(1);
-    if(!document.getElementById(id)||!document.getElementById(id).classList.contains('vista')) id='inicio';
-    vistas.forEach(function(v){v.classList.toggle('on',v.id===id)});
-    links.forEach(function(a){ if(a.getAttribute('href')==='#'+id) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
-    document.title=document.querySelector('header nav a[href="#'+id+'"]').textContent+' | CuddleMe';
-    window.scrollTo(0,0);
+
+/* ==================== MODO CLARO Y OSCURO ==================== */
+// Guarda la preferencia en localStorage (con try/catch por si el navegador la bloquea).
+const raiz = document.documentElement;
+const btnTema = document.getElementById('tema');
+function aplicarTema(tema, guardar) {
+  raiz.setAttribute('data-bs-theme', tema);
+  const oscuro = tema === 'dark';
+  btnTema.setAttribute('aria-pressed', String(oscuro));
+  document.getElementById('tema-icono').textContent = oscuro ? '☀️' : '🌙';
+  document.getElementById('tema-txt').textContent = oscuro ? 'Modo claro' : 'Modo oscuro';
+  if (guardar) { try { localStorage.setItem('cuddle-tema', tema); } catch (e) {} }
+}
+aplicarTema(raiz.getAttribute('data-bs-theme') || 'light', false);
+btnTema.addEventListener('click', function () {
+  aplicarTema(raiz.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark', true);
+});
+// Si la persona no eligió un tema a mano, sigue los cambios del sistema operativo.
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (ev) {
+  let guardado = null;
+  try { guardado = localStorage.getItem('cuddle-tema'); } catch (e) {}
+  if (!guardado) aplicarTema(ev.matches ? 'dark' : 'light', false);
+});
+
+/* ==================== NAVEGACIÓN SUAVE ENTRE SECCIONES ==================== */
+// Cambia de sección con un desvanecimiento, sin recargar la página.
+(function () {
+  const vistas = document.querySelectorAll('.vista'), links = document.querySelectorAll('#barra .nav-link');
+  const main = document.querySelector('main'), menu = document.getElementById('menu');
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let primera = true;
+
+  function mostrar(id) {
+    vistas.forEach(function (v) { v.classList.toggle('on', v.id === id); });
+    links.forEach(function (a) {
+      if (a.getAttribute('href') === '#' + id) { a.classList.add('active'); a.setAttribute('aria-current', 'page'); }
+      else { a.classList.remove('active'); a.removeAttribute('aria-current'); }
+    });
+    document.title = document.querySelector('#barra .nav-link[href="#' + id + '"]').textContent + ' | CuddleMe';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    main.classList.remove('saliendo');
   }
-  // Detecta cambios de navegación y ejecuta la función inicialmente.
-window.addEventListener('hashchange',ir); ir();
-})();</script>
+
+  function ir() {
+    let id = (location.hash || '#inicio').slice(1);
+    const destino = document.getElementById(id);
+    if (!destino || !destino.classList.contains('vista')) id = 'inicio';
+    // Cierra el menú plegable en pantallas pequeñas.
+    if (menu.classList.contains('show')) bootstrap.Collapse.getOrCreateInstance(menu).hide();
+    if (primera || reducido) { primera = false; mostrar(id); return; }
+    main.classList.add('saliendo');
+    setTimeout(function () { mostrar(id); }, 180);
+  }
+  window.addEventListener('hashchange', ir);
+  ir();
+})();
+
+/* ==================== EFECTOS DE SCROLL ==================== */
+// La barra se compacta al bajar y aparece un botón para volver arriba.
+(function () {
+  const barra = document.getElementById('barra'), subir = document.getElementById('subir');
+  let pendiente = false;
+  function actualizar() {
+    barra.classList.toggle('scrolled', window.scrollY > 40);
+    subir.classList.toggle('visible', window.scrollY > 500);
+    pendiente = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!pendiente) { pendiente = true; requestAnimationFrame(actualizar); }
+  }, { passive: true });
+  subir.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  actualizar();
+})();
+</script>
 </body></html>
