@@ -5,7 +5,10 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ctext y=%2752%27 font-size=%2752%27%3E%F0%9F%A7%B8%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-<style>:root{--rosa:#F7A8B8;--cacao:#5A3A31;--cielo:#8EC5E8;--bruma:#FFF3F6;--peluche:#F7A8B8}
+<style>
+/* ==================== ESTILOS GENERALES ==================== */
+/* Variables de colores principales utilizadas en todo el proyecto. */
+:root{--rosa:#F7A8B8;--cacao:#5A3A31;--cielo:#8EC5E8;--bruma:#FFF3F6;--peluche:#F7A8B8}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bruma);color:var(--cacao);font:1.0625rem/1.65 Nunito,system-ui,sans-serif}
 h1,h2,h3{font-family:"Baloo 2",Nunito,system-ui,sans-serif;line-height:1.1}
@@ -86,8 +89,10 @@ textarea{display:block;width:100%;font:.95rem ui-monospace,Consolas,monospace;ma
 .vista{display:none}.vista.on{display:block}
 html{color-scheme:light}
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+/* El diseño responsive adapta el sitio a diferentes tamaños de pantalla. */
 </style>
 </head><body>
+<!-- SVG oculto que define el logotipo reutilizable de CuddleMe. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="logo" viewBox="0 0 64 64">
 <circle cx="17" cy="19" r="9" fill="#F7A8B8" stroke="#5A3A31" stroke-width="2.5"/><circle cx="17" cy="19" r="4.2" fill="#8EC5E8"/>
 <circle cx="47" cy="19" r="9" fill="#F7A8B8" stroke="#5A3A31" stroke-width="2.5"/><circle cx="47" cy="19" r="4.2" fill="#8EC5E8"/>
@@ -98,9 +103,12 @@ html{color-scheme:light}
 <ellipse cx="32" cy="41.5" rx="3.3" ry="2.4" fill="#5A3A31"/>
 <path d="M32 44v3M32 47q-3 2.6-6 0M32 47q3 2.6 6 0" fill="none" stroke="#5A3A31" stroke-width="1.8" stroke-linecap="round"/>
 </symbol></svg>
+<!-- Encabezado principal con el logotipo y el menú de navegación. -->
 <header class="top"><a class="brand" href="#inicio"><svg width="40" height="40" aria-hidden="true"><use href="#logo"/></svg><span>CuddleMe</span></a>
 <nav aria-label="Principal"><a href="#inicio">Inicio</a><a href="#javascript">JavaScript</a><a href="#jquery">jQuery</a><a href="#json">JSON</a><a href="#hosting">Hosting y Dominios</a><a href="#cuestionario">Cuestionario Web</a></nav></header>
+<!-- Contenido principal del sitio. La clase "vista" permite cambiar entre secciones. -->
 <main><section class="vista" id="inicio">
+<!-- Sección principal donde el usuario personaliza su peluche. -->
 <section class="hero"><div class="wrap hero-in">
 <div><h1>CuddleMe</h1>
 <p class="lead">Un abrazo que puedes personalizar. Empieza con un peluche liso y hazlo tuyo.</p>
@@ -111,6 +119,7 @@ html{color-scheme:light}
 <div class="stage" aria-live="polite"><div id="escena"></div><p class="hola" id="hola"></p><p class="nota" id="nota"></p></div>
 </div></section>
 <div class="wrap">
+<!-- Información general sobre el producto CuddleMe. -->
 <section><h2>El producto</h2>
 <dl class="facts"><dt>Nombre comercial</dt><dd>CuddleMe</dd>
 <dt>Descripción</dt><dd>CuddleMe crea peluches suaves hechos a pedido. Cada cliente diseña el suyo en la página: elige el tipo de oso (clásico, panda, polar o dorado), el color, las orejas, las patitas, los accesorios, la ropita, el nombre y un mensaje especial que llega en una tarjeta con el peluche. Los ojos son bordados para que sean seguros para niños pequeños, y cada pieza se prepara con cariño antes de enviarse.</dd>
@@ -118,16 +127,19 @@ html{color-scheme:light}
 <dt>Público objetivo</dt><dd>Familiares y amigos que buscan un regalo con significado: padres y abuelos de niños de 0 a 10 años, y también jóvenes y adultos que quieren sorprender a su pareja o a un amigo en cumpleaños, aniversarios, graduaciones o San Valentín.</dd>
 <dt>Propuesta de valor</dt><dd>Un peluche que es único porque lo diseñas tú. No regalas un objeto cualquiera: regalas un compañero con nombre, estilo y un mensaje propio, que se vuelve un recuerdo.</dd>
 <dt>Frase de marca</dt><dd>“Un abrazo que puedes personalizar.”</dd></dl></section>
+<!-- Explicación y ejemplos del logotipo de la marca. -->
 <section><h2>Logotipo</h2>
 <p>El logo es la cara de un osito de peluche con mejillas sonrojadas y orejas de dos colores. Usa formas redondas y sin esquinas para transmitir suavidad y ternura, justo lo que se siente al abrazar un peluche. Los detalles azules dentro de las orejas hacen que se vea distinto de un osito genérico y se ve bien sobre fondos claros, rosas y oscuros.</p>
 <div class="logo-row"><svg width="120" height="120" aria-label="Logotipo sobre fondo claro" role="img"><use href="#logo"/></svg><svg class="pk" width="120" height="120" aria-label="Logotipo sobre fondo rosa" role="img"><use href="#logo"/></svg><svg class="dk" width="120" height="120" aria-label="Logotipo sobre fondo oscuro" role="img"><use href="#logo"/></svg></div></section>
+<!-- Colores utilizados para representar la identidad visual. -->
 <section><h2>Paleta de colores</h2>
 <ul class="sw">
 <li><span class="chip" style="background:#F7A8B8"></span><div><strong>Rosa algodón</strong> <code>#F7A8B8</code><p>Representa ternura, cariño y dulzura. Es el color principal de la marca y evoca el afecto de un abrazo.</p></div></li>
 <li><span class="chip" style="background:#5A3A31"></span><div><strong>Café cacao</strong> <code>#5A3A31</code><p>Transmite calidez, cercanía y confianza, y recuerda al pelaje de un osito. Se usa en textos y contornos porque se lee bien sobre colores claros.</p></div></li>
 <li><span class="chip" style="background:#8EC5E8"></span><div><strong>Azul cielo</strong> <code>#8EC5E8</code><p>Se asocia con calma, seguridad e infancia. Equilibra la dulzura del rosa y da un acento fresco y diferente.</p></div></li>
 <li><span class="chip" style="background:#FFF3F6"></span><div><strong>Blanco rosado</strong> <code>#FFF3F6</code><p>Fondo muy suave que da sensación de pureza y limpieza, y deja respirar el contenido.</p></div></li></ul></section>
-</div></section><section class="vista page" id="javascript"><div class="wrap">
+</div></section><!-- Página educativa sobre JavaScript y sus conceptos básicos. -->
+<section class="vista page" id="javascript"><div class="wrap">
 <h1>JavaScript (JS vanilla)</h1>
 <p class="lead">JavaScript es el lenguaje de programación de los navegadores. Se usa en el desarrollo web para que una página reaccione a lo que hace la persona: clics, teclas, formularios y datos que llegan de un servidor. "Vanilla" significa JavaScript puro, sin librerías. En CuddleMe, por ejemplo, es lo que hace que el peluche de la página de inicio cambie de color mientras eliges.</p>
 
@@ -146,15 +158,19 @@ html{color-scheme:light}
 
 <h2>Ejemplo práctico</h2>
 <p>El siguiente código usa una variable, una función y dos eventos. Pruébalo con el botón: haz clic para dar abrazos y pasa el cursor por encima para ver cómo cambia el color.</p>
-<pre><code>const boton = document.getElementById('btn-abrazo');
+<pre><code>/* ==================== EJEMPLO DE JAVASCRIPT ==================== */
+// Obtiene los elementos del botón y del texto que muestra el número de abrazos.
+const boton = document.getElementById('btn-abrazo');
 const salida = document.getElementById('salida-abrazo');
 let abrazos = 0;                      // variable
 
+// Aumenta en uno el contador de abrazos y actualiza el texto en pantalla.
 function darAbrazo() {                // función
   abrazos = abrazos + 1;
   salida.textContent = 'Abrazos: ' + abrazos;
 }
 
+// Ejecuta la función cuando el usuario hace clic en el botón.
 boton.addEventListener('click', darAbrazo);                                   // evento click
 boton.addEventListener('mouseover', () =&gt; boton.style.background = '#8EC5E8'); // evento hover
 boton.addEventListener('mouseout',  () =&gt; boton.style.background = '');</code></pre>
@@ -171,7 +187,8 @@ boton.addEventListener('mouseout',  () =&gt; boton.style.background = '');</code
 <li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript">MDN Web Docs: JavaScript</a></li>
 <li><a href="https://developer.mozilla.org/es/docs/Web/Events">MDN Web Docs: Eventos</a></li>
 <li><a href="https://www.w3schools.com/js/">W3Schools: JavaScript Tutorial</a></li></ul></section>
-</div></section><section class="vista page" id="jquery"><div class="wrap"><h1>jQuery</h1>
+</div></section><!-- Página educativa sobre la librería jQuery. -->
+<section class="vista page" id="jquery"><div class="wrap"><h1>jQuery</h1>
 <p class="lead">jQuery es una librería de JavaScript lanzada en 2006. Nació porque los navegadores de esa época interpretaban el JavaScript de formas distintas, y escribir código que funcionara en todos era difícil. jQuery ofrecía una manera corta y uniforme de hacerlo, con el lema de escribir menos y hacer más.</p>
 <h2>Sintaxis básica</h2>
 <p>El símbolo <code>$</code> es la función principal de jQuery. El patrón siempre es el mismo: seleccionar un elemento y aplicarle una acción.</p>
@@ -198,7 +215,8 @@ $(&#x27;#btn-slide&#x27;).on(&#x27;click&#x27;, function () {
 <div class="demo"><button id="btn-fade" class="btn">fadeIn: ver mensaje</button> <button id="btn-slide" class="btn">slideToggle: ver accesorios</button>
 <div id="caja" class="box">💌 “Un abrazo que puedes personalizar.”</div>
 <div id="panel" class="box alt"><strong>Accesorios disponibles:</strong> lazo, gorro de fiesta, corona, bufanda y lentes.</div></div>
-<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://api.jquery.com/">jQuery API Documentation</a></li><li><a href="https://jquery.com/">jQuery: sitio oficial</a></li><li><a href="https://www.w3schools.com/jquery/">W3Schools: jQuery Tutorial</a></li></ul></section></div></section><section class="vista page" id="json"><div class="wrap"><h1>JSON (JavaScript Object Notation)</h1>
+<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://api.jquery.com/">jQuery API Documentation</a></li><li><a href="https://jquery.com/">jQuery: sitio oficial</a></li><li><a href="https://www.w3schools.com/jquery/">W3Schools: jQuery Tutorial</a></li></ul></section></div></section><!-- Página educativa sobre el formato de datos JSON. -->
+<section class="vista page" id="json"><div class="wrap"><h1>JSON (JavaScript Object Notation)</h1>
 <p class="lead">JSON es un formato de texto para representar datos. Es ligero, fácil de leer para una persona y fácil de procesar para casi cualquier lenguaje de programación. Por eso es el estándar para intercambiar datos entre aplicaciones y servidores: un peluche de CuddleMe, con su nombre, color y mensaje, puede viajar como JSON del formulario a la fábrica.</p>
 <h2>Estructura básica</h2>
 <ul><li><strong>Objeto:</strong> conjunto de pares clave-valor entre llaves <code>{ }</code>.</li><li><strong>Arreglo:</strong> lista ordenada de valores entre corchetes <code>[ ]</code>.</li><li><strong>Valores permitidos:</strong> texto, número, <code>true</code> o <code>false</code>, <code>null</code>, objetos y arreglos.</li><li><strong>Regla clave:</strong> las claves y los textos siempre van entre comillas dobles.</li></ul>
@@ -224,7 +242,7 @@ $(&#x27;#btn-slide&#x27;).on(&#x27;click&#x27;, function () {
 <h2>Pruébalo</h2>
 <pre><code>const texto = document.getElementById(&#x27;entrada&#x27;).value;
 try {
-  const objeto = JSON.parse(texto);   // cadena JSON -&gt; objeto JS
+  const objeto = JSON.parse(texto);   // Convierte el texto JSON en un objeto JavaScript.   // cadena JSON -&gt; objeto JS
   salida.textContent = &#x27;Válido. El peluche se llama &#x27; + objeto.nombre;
 } catch (error) {
   salida.textContent = &#x27;JSON inválido: &#x27; + error.message;
@@ -243,7 +261,8 @@ try {
 <p>Cuando una página necesita datos (por ejemplo, el estado de un pedido), el navegador envía una petición a un servidor o a una API. El servidor responde con texto en formato JSON, y el código de la página lo convierte en objetos para mostrarlo en pantalla. También funciona al revés: al enviar el formulario de personalización, la página manda los datos del peluche como JSON.</p>
 <pre><code>fetch(&#x27;https://api.ejemplo.com/pedidos/1&#x27;)
   .then(respuesta =&gt; respuesta.json())      // lee la respuesta como JSON
-  .then(datos =&gt; console.log(datos.peluche.nombre));</code></pre><section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON">MDN: JSON</a></li><li><a href="https://www.json.org/json-es.html">JSON.org (especificación)</a></li><li><a href="https://www.w3schools.com/js/js_json_intro.asp">W3Schools: JSON Tutorial</a></li></ul></section></div></section><section class="vista page" id="hosting"><div class="wrap"><h1>Web hosting y dominios</h1>
+  .then(datos =&gt; console.log(datos.peluche.nombre));</code></pre><section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON">MDN: JSON</a></li><li><a href="https://www.json.org/json-es.html">JSON.org (especificación)</a></li><li><a href="https://www.w3schools.com/js/js_json_intro.asp">W3Schools: JSON Tutorial</a></li></ul></section></div></section><!-- Página educativa sobre hosting, dominios y DNS. -->
+<section class="vista page" id="hosting"><div class="wrap"><h1>Web hosting y dominios</h1>
 <p class="lead">Una página web es un conjunto de archivos. Para que otras personas la vean, esos archivos deben estar en un servidor conectado a internet (hosting), y alguien debe poder encontrarlos con un nombre fácil de recordar (dominio).</p>
 <h2>Web hosting</h2>
 <p>El hosting es el servicio que guarda tus archivos en un servidor que está encendido todo el tiempo y los entrega a quien los pida.</p>
@@ -262,29 +281,39 @@ try {
 <p>El DNS es la "guía telefónica" de internet: traduce dominios a direcciones IP. Así ocurre una consulta:</p>
 <ol class="flow"><li>Escribes <code>tienda.cuddleme.com</code> en el navegador.</li><li>El navegador y el sistema operativo buscan la IP en su memoria (caché). Si no la tienen, preguntan al resolver DNS de tu proveedor de internet.</li><li>El resolver consulta a un servidor raíz, que lo envía al servidor del TLD (<code>.com</code>).</li><li>El servidor del TLD indica cuál es el servidor DNS autoritativo del dominio, que guarda los registros reales.</li><li>El servidor autoritativo responde con la dirección IP del hosting.</li><li>El navegador se conecta a esa IP y recibe la página. La respuesta queda en caché por un tiempo.</li></ol>
 <p>Cuando cambias un registro DNS (por ejemplo, apuntar tu dominio a Vercel), los servidores del mundo no se enteran al instante: cada uno guarda la respuesta anterior hasta que vence su TTL (tiempo de vida). A ese reparto gradual se le llama <strong>propagación</strong> y puede tardar desde minutos hasta 48 horas.</p>
-<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://vercel.com/docs">Vercel Docs</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/DNS">MDN: DNS (glosario)</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/TLD">MDN: TLD (glosario)</a></li><li><a href="https://www.w3schools.com/whatis/whatis_hosting.asp">W3Schools: Web Hosting</a></li></ul></section></div></section><section class="vista page" id="cuestionario"><div class="wrap"><h1>Cuestionario web</h1>
+<section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://vercel.com/docs">Vercel Docs</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/DNS">MDN: DNS (glosario)</a></li><li><a href="https://developer.mozilla.org/es/docs/Glossary/TLD">MDN: TLD (glosario)</a></li><li><a href="https://www.w3schools.com/whatis/whatis_hosting.asp">W3Schools: Web Hosting</a></li></ul></section></div></section><!-- Cuestionario interactivo para evaluar los conocimientos del sitio. -->
+<section class="vista page" id="cuestionario"><div class="wrap"><h1>Cuestionario web</h1>
 <p class="lead">Diez preguntas basadas en las páginas de este sitio. Elige una respuesta en cada una para ver al instante si es correcta. Si te equivocas, lee la explicación y repasa la página correspondiente.</p>
 <div id="quiz"></div><div id="resultado" class="result" aria-live="polite" hidden></div>
 <button id="reiniciar" class="btn" hidden>Intentar de nuevo</button></div></section></main>
+<!-- Pie de página con información del proyecto académico. -->
 <footer><p>CuddleMe es una marca creada para un proyecto académico de desarrollo web.</p></footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+/* ==================== CONFIGURACIÓN DEL PERSONALIZADOR ==================== */
+// Tipos de osos disponibles y sus características visuales.
 const TIPOS = {
   clasico: { n: 'Clásico', color: '#B07A4F', hocico: '#F4DDBF' },
   panda:   { n: 'Panda',   color: '#FFFFFF', hocico: '#FFFFFF' },
   polar:   { n: 'Polar',   color: '#FFFFFF', hocico: '#EAF2F8' },
   miel:    { n: 'Dorado',  color: '#E8B04A', hocico: '#FBE7B5' }
 };
+// Colores que el usuario puede seleccionar para personalizar el peluche.
 const COLORES = [['#B07A4F', 'Marrón'], ['#FFFFFF', 'Blanco'], ['#E8B04A', 'Dorado'], ['#F7A8B8', 'Rosa'], ['#8EC5E8', 'Azul'], ['#C9B6E8', 'Lila']];
+// Formas de orejas disponibles.
 const OREJAS = [['redondas', 'Redondas'], ['grandes', 'Grandes'], ['pequenas', 'Pequeñas'], ['gatito', 'De gatito']];
+// Tipos de patitas disponibles.
 const PATITAS = [['normales', 'Normales'], ['grandes', 'Grandes'], ['almohadillas', 'Con almohadillas'], ['zapatitos', 'Con zapatitos']];
+// Accesorios que se pueden colocar en la cabeza.
 const CABEZA = [['', 'Nada'], ['lazo', 'Lazo'], ['gorro', 'Gorro de fiesta'], ['corona', 'Corona']];
+// Opciones de ropa para el peluche.
 const ROPA = [['', 'Sin ropa'], ['camiseta', 'Camiseta']];
+// Estado inicial del personalizador.
 const INICIO = { tipo: 'clasico', color: '#B07A4F', orejas: 'redondas', patitas: 'normales', cabeza: '', ropa: '', lentes: false, bufanda: false };
-let estado = Object.assign({}, INICIO);
-const ctrl = document.getElementById('ctrl'), escena = document.getElementById('escena');
+let estado = Object.assign({}, INICIO); // Restablece el objeto de configuración. // Copia el estado inicial para poder modificarlo.
+const ctrl = document.getElementById('ctrl'), escena = document.getElementById('escena'); // Referencias a los elementos donde se crean controles y dibujo.
 const nombreIn = document.getElementById('nombre'), msgIn = document.getElementById('msg');
 
+// Crea grupos de opciones para que el usuario pueda personalizar el peluche.
 function grupo(titulo, clave, lista, esColor) {
   const items = lista.map(function (o) {
     const marca = estado[clave] === o[0] ? ' checked' : '';
@@ -296,8 +325,9 @@ function grupo(titulo, clave, lista, esColor) {
   return '<fieldset class="g"><legend>' + titulo + '</legend><div class="chips">' + items + '</div></fieldset>';
 }
 
+// Construye dinámicamente los controles del personalizador dentro del HTML.
 function construir() {
-  ctrl.innerHTML =
+  ctrl.innerHTML = // Inserta en pantalla las opciones de personalización.
     grupo('Tipo de oso', 'tipo', Object.keys(TIPOS).map(function (k) { return [k, TIPOS[k].n]; })) +
     grupo('Color', 'color', COLORES, true) +
     grupo('Orejas', 'orejas', OREJAS) +
@@ -309,12 +339,14 @@ function construir() {
     '<label><input type="checkbox" name="bufanda"' + (estado.bufanda ? ' checked' : '') + '><span class="t">Bufanda</span></label></div></fieldset>';
 }
 
+// Dibuja las almohadillas de las patas mediante elementos SVG.
 function pad(x, y) {
   const r = '#F28FA6';
   return '<ellipse cx="' + x + '" cy="' + (y + 3) + '" rx="9" ry="7" fill="' + r + '"/>' +
     '<circle cx="' + (x - 9) + '" cy="' + (y - 6) + '" r="3.5" fill="' + r + '"/><circle cx="' + x + '" cy="' + (y - 9) + '" r="3.5" fill="' + r + '"/><circle cx="' + (x + 9) + '" cy="' + (y - 6) + '" r="3.5" fill="' + r + '"/>';
 }
 
+// Genera el dibujo SVG del peluche según las opciones seleccionadas.
 function dibujar() {
   const e = estado, t = TIPOS[e.tipo], K = '#5A3A31', D = '#2B2B2B', panda = e.tipo === 'panda';
   const acc = e.color === '#8EC5E8' ? '#F7A8B8' : '#8EC5E8';
@@ -365,6 +397,7 @@ function dibujar() {
   document.getElementById('nota').textContent = msgIn.value.trim() || 'Aquí aparecerá tu mensaje especial.';
 }
 
+// Detecta los cambios realizados en las opciones de personalización.
 ctrl.addEventListener('change', function (ev) {
   const el = ev.target;
   if (el.type === 'checkbox') estado[el.name] = el.checked;
@@ -377,13 +410,17 @@ ctrl.addEventListener('change', function (ev) {
   }
   dibujar();
 });
+// Actualiza el peluche mientras se escribe su nombre.
 nombreIn.addEventListener('input', dibujar);
+// Actualiza el mensaje especial mientras se escribe.
 msgIn.addEventListener('input', dibujar);
+// Restaura todas las opciones del peluche a sus valores iniciales.
 document.getElementById('reset').addEventListener('click', function () {
   estado = Object.assign({}, INICIO);
   nombreIn.value = ''; msgIn.value = '';
   construir(); dibujar();
 });
+// Carga inicialmente los controles y dibuja el peluche.
 construir();
 dibujar();
 
@@ -401,14 +438,33 @@ boton.addEventListener('mouseover', () => boton.style.background = '#8EC5E8');
 boton.addEventListener('mouseout', () => boton.style.background = '');
 
 
-$('#btn-fade').on('click', function () {
-  $('#caja').hide().fadeIn(600);        // el mensaje aparece suavemente
+/* ==================== EJEMPLOS DE ANIMACIÓN ==================== */
+const btnFade = document.getElementById('btn-fade');
+const caja = document.getElementById('caja');
+const panel = document.getElementById('panel');
+
+btnFade.addEventListener('click', function () {
+  caja.style.display = 'none';
+  requestAnimationFrame(function () {
+    caja.style.display = 'block';
+    caja.style.opacity = '0';
+    caja.style.transform = 'translateY(12px)';
+    caja.style.transition = 'opacity .45s ease, transform .45s ease';
+    requestAnimationFrame(function () {
+      caja.style.opacity = '1';
+      caja.style.transform = 'translateY(0)';
+    });
+  });
 });
-$('#btn-slide').on('click', function () {
-  $('#panel').slideToggle(400);         // la lista se desliza abierta o cerrada
+
+panel.style.display = 'block';
+document.getElementById('btn-slide').addEventListener('click', function () {
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
 });
 
 
+/* ==================== EJEMPLO DE JSON ==================== */
+// Valida y procesa el JSON escrito por el usuario.
 document.getElementById('btn-json').addEventListener('click', function () {
   const salida = document.getElementById('salida');
 const texto = document.getElementById('entrada').value;
@@ -420,6 +476,8 @@ try {
 }
 });
 
+/* ==================== CUESTIONARIO ==================== */
+// Arreglo que contiene las preguntas, opciones, respuestas correctas y explicaciones.
 const preguntas = [
   { t: "¿Qué lenguaje define el comportamiento de una página web?", o: ["HTML", "CSS", "JavaScript", "JSON"], c: 2, x: "HTML da estructura, CSS da estilo y JavaScript define el comportamiento." },
   { t: "¿Por qué un cambio de DNS puede tardar hasta 48 horas en verse en todo el mundo?", o: ["Porque hay que reiniciar el navegador", "Por la propagación DNS: los servidores guardan la respuesta anterior hasta que vence su TTL", "Porque hay que comprar otro dominio", "Porque cambia el TLD"], c: 1, x: "Cada servidor guarda la respuesta anterior hasta que vence su TTL; ese reparto gradual es la propagación." },
@@ -435,6 +493,7 @@ const preguntas = [
 const cont = document.getElementById('quiz'), res = document.getElementById('resultado'), otra = document.getElementById('reiniciar');
 let aciertos = 0, hechas = 0;
 
+// Genera dinámicamente todas las preguntas del cuestionario.
 function pintar() {
   aciertos = 0; hechas = 0; res.hidden = true; otra.hidden = true; cont.innerHTML = '';
   preguntas.forEach(function (p, i) {
@@ -443,7 +502,7 @@ function pintar() {
       p.o.map(function (txt, j) { return '<label><input type="radio" name="p' + i + '" value="' + j + '"> ' + txt + '</label>'; }).join('') +
       '<p class="fb" aria-live="polite"></p>';
     f.addEventListener('change', function (ev) {
-      const elegida = Number(ev.target.value), labels = f.querySelectorAll('label');
+      const elegida = Number(ev.target.value), labels = f.querySelectorAll('label'); // Obtiene la respuesta elegida y sus opciones.
       f.querySelectorAll('input').forEach(function (r) { r.disabled = true; });
       labels[p.c].classList.add('right');
       const ok = elegida === p.c;
@@ -459,13 +518,17 @@ function pintar() {
     cont.appendChild(f);
   });
 }
+// Reinicia el cuestionario y vuelve al inicio de la página.
 otra.addEventListener('click', function () { pintar(); window.scrollTo(0, 0); });
 pintar();
 </script>
 <script>
+/* ==================== NAVEGACIÓN ENTRE SECCIONES ==================== */
+// Controla la navegación mediante enlaces con hash (#) sin recargar la página.
 (function(){
   var vistas=document.querySelectorAll('.vista'), links=document.querySelectorAll('header nav a');
-  function ir(){
+  // Muestra la sección correspondiente al enlace seleccionado.
+function ir(){
     var id=(location.hash||'#inicio').slice(1);
     if(!document.getElementById(id)||!document.getElementById(id).classList.contains('vista')) id='inicio';
     vistas.forEach(function(v){v.classList.toggle('on',v.id===id)});
@@ -473,6 +536,7 @@ pintar();
     document.title=document.querySelector('header nav a[href="#'+id+'"]').textContent+' | CuddleMe';
     window.scrollTo(0,0);
   }
-  window.addEventListener('hashchange',ir); ir();
+  // Detecta cambios de navegación y ejecuta la función inicialmente.
+window.addEventListener('hashchange',ir); ir();
 })();</script>
 </body></html>
