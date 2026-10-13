@@ -1,9 +1,9 @@
 # 🧸 Portafolio de Proyecto Web: CuddleMe
 
-**Estudiante:** [Nombre completo del alumno]
-**Fecha:** [Fecha de entrega]
-**Enlace al Sitio Web (Vercel):** https://tu-proyecto.vercel.app
-**Repositorio GitHub:** https://github.com/usuario/repositorio
+**Estudiante:** [Paola Jezabel Martinez Moreno]
+**Fecha:** [Viernes 16 de octubre de 2026]
+**Enlace al Sitio Web (Vercel):** https://cuddlememain.vercel.app/
+**Repositorio GitHub:** https://github.com/pm2013952-gif/cuddleme_main.gito
 
 ---
 
@@ -77,25 +77,6 @@ fetch(WEBHOOK_URL, {
 
 ## 4. Anexos y Evidencias Gráficas
 
-### Anexo 1: Integración con Discord (Formulario vs. Recepción)
-
-![Formulario y notificación en Discord](assets/discord-webhook.png)
-
-### Anexo 2: Despliegue Exitoso en Vercel
-
-![Panel de Vercel con estado Ready](assets/vercel-status.png)
-
-### Anexo 3: Diseño Responsive y Bootstrap
-
-![Vista móvil desde DevTools](assets/responsive-movil.png)
-
-### Anexo 4: Cuestionario Interactivo en Funcionamiento
-
-![Cuestionario con preguntas respondidas](assets/quiz.png)
-
-### Anexo 5: Estructura del Repositorio en GitHub
-
-![Estructura del repositorio](assets/repo-github.png)
 
 ---
 
