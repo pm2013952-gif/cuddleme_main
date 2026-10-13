@@ -21,7 +21,7 @@
 
 * **Logotipo:** la cara de un osito con mejillas sonrojadas y orejas de dos colores. Usa formas redondas, sin esquinas, para transmitir suavidad y ternura.
 
-![Logotipo de la Marca](assets/logo.png)
+![Logotipo de la Marca](logotipo.png)
 
 * **Paleta de Colores:**
 
