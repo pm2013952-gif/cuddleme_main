@@ -76,6 +76,25 @@ fetch(WEBHOOK_URL, {
 ---
 
 ## 4. Anexos y Evidencias Gráficas
+### Anexo 1: Integración con Discord (Formulario vs. Recepción)
+
+![Formulario y notificación en Discord](assets/discord-webhook.png)
+
+### Anexo 2: Despliegue Exitoso en Vercel
+
+![Panel de Vercel con estado Ready](assets/vercel-status.png)
+
+### Anexo 3: Diseño Responsive y Bootstrap
+
+![Vista móvil desde DevTools](assets/responsive-movil.png)
+
+### Anexo 4: Cuestionario Interactivo en Funcionamiento
+
+![Cuestionario con preguntas respondidas](assets/quiz.png)
+
+### Anexo 5: Estructura del Repositorio en GitHub
+
+![Estructura del repositorio](assets/repo-github.png)
 
 
 ---
