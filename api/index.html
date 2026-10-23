@@ -230,7 +230,7 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 <h2>Haz tu pedido</h2>
 <p>Cuando tu peluche esté como lo quieres, llena tus datos y envíalo. Te contactaremos para confirmar el pedido.</p>
 <div class="card p-3 p-md-4 shadow-sm" style="background:var(--surface);border:2px solid var(--line);border-radius:18px">
-<form id="form-pedido" action="https://formsubmit.co/pm2013952@gmail.com" method="POST">
+<form id="form-pedido" action="https://formsubmit.co/pm201352@gmail.com" method="POST">
   <input type="hidden" name="_subject" value="Nuevo pedido - CuddleMe">
   <input type="hidden" name="_template" value="table">
   <input type="hidden" name="_captcha" value="false">
@@ -369,10 +369,10 @@ boton.addEventListener('mouseout',  () =&gt; boton.style.background = '');</code
 <p class="lead">jQuery es una librería de JavaScript lanzada en 2006. Nació porque los navegadores de esa época interpretaban el JavaScript de formas distintas, y escribir código que funcionara en todos era difícil. jQuery ofrecía una manera corta y uniforme de hacerlo, con el lema de escribir menos y hacer más.</p>
 <h2>Sintaxis básica</h2>
 <p>El símbolo <code>$</code> es la función principal de jQuery. El patrón siempre es el mismo: seleccionar un elemento y aplicarle una acción.</p>
-<pre><code>$(&#x27;selector&#x27;).accion();
+<pre><code>$('selector').accion();
 
-$(&#x27;#mensaje&#x27;).text(&#x27;Te quiero mucho&#x27;);   // selecciona por id y cambia el texto
-$(&#x27;.tarjeta&#x27;).hide();                   // selecciona por clase y oculta</code></pre>
+$('#mensaje').text('Te quiero mucho');   // selecciona por id y cambia el texto
+$('.tarjeta').hide();                   // selecciona por clase y oculta</code></pre>
 <p>Para usarla hay que cargar el archivo de jQuery antes de tu código, por ejemplo desde un CDN:</p>
 <pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 <h2>Ventajas y desventajas frente a JavaScript moderno</h2>
@@ -380,14 +380,14 @@ $(&#x27;.tarjeta&#x27;).hide();                   // selecciona por clase y ocul
 <div><h3>Desventajas</h3><ul><li>Es una descarga extra que hace la página más pesada.</li><li>Casi todo lo que resolvía ya existe en JavaScript moderno (<code>querySelector</code>, <code>classList</code>, <code>fetch</code>).</li><li>Los frameworks actuales usan otro enfoque y no dependen de jQuery.</li></ul></div></div>
 <h2>Comparación: JS vanilla y jQuery</h2>
 <p>La misma tarea escrita de las dos formas, lado a lado:</p>
-<div class="scroll"><table><thead><tr><th>Tarea</th><th>JS vanilla</th><th>jQuery</th></tr></thead><tbody><tr><td>Seleccionar un elemento</td><td><code>const t = document.querySelector(&#x27;#nombre-peluche&#x27;);</code></td><td><code>const t = $(&#x27;#nombre-peluche&#x27;);</code></td></tr><tr><td>Escuchar un clic</td><td><code>btn.addEventListener(&#x27;click&#x27;, f);</code></td><td><code>$(&#x27;#btn&#x27;).on(&#x27;click&#x27;, f);</code></td></tr><tr><td>Ocultar un elemento</td><td><code>caja.style.display = &#x27;none&#x27;;</code></td><td><code>$(&#x27;#caja&#x27;).hide();</code></td></tr><tr><td>Agregar una clase</td><td><code>caja.classList.add(&#x27;destacado&#x27;);</code></td><td><code>$(&#x27;#caja&#x27;).addClass(&#x27;destacado&#x27;);</code></td></tr><tr><td>Cambiar el texto</td><td><code>t.textContent = &#x27;Osito&#x27;;</code></td><td><code>$(&#x27;#nombre-peluche&#x27;).text(&#x27;Osito&#x27;);</code></td></tr></tbody></table></div>
+<div class="scroll"><table><thead><tr><th>Tarea</th><th>JS vanilla</th><th>jQuery</th></tr></thead><tbody><tr><td>Seleccionar un elemento</td><td><code>const t = document.querySelector('#nombre-peluche');</code></td><td><code>const t = $('#nombre-peluche');</code></td></tr><tr><td>Escuchar un clic</td><td><code>btn.addEventListener('click', f);</code></td><td><code>$('#btn').on('click', f);</code></td></tr><tr><td>Ocultar un elemento</td><td><code>caja.style.display = 'none';</code></td><td><code>$('#caja').hide();</code></td></tr><tr><td>Agregar una clase</td><td><code>caja.classList.add('destacado');</code></td><td><code>$('#caja').addClass('destacado');</code></td></tr><tr><td>Cambiar el texto</td><td><code>t.textContent = 'Osito';</code></td><td><code>$('#nombre-peluche').text('Osito');</code></td></tr></tbody></table></div>
 <h2>Efectos típicos</h2>
 <p>Dos efectos clásicos de jQuery: <code>fadeIn</code> (aparecer poco a poco) y <code>slideToggle</code> (abrir y cerrar deslizando). Pruébalos:</p>
-<pre><code>$(&#x27;#btn-fade&#x27;).on(&#x27;click&#x27;, function () {
-  $(&#x27;#caja&#x27;).hide().fadeIn(600);        // el mensaje aparece suavemente
+<pre><code>$('#btn-fade').on('click', function () {
+  $('#caja').hide().fadeIn(600);        // el mensaje aparece suavemente
 });
-$(&#x27;#btn-slide&#x27;).on(&#x27;click&#x27;, function () {
-  $(&#x27;#panel&#x27;).slideToggle(400);         // la lista se desliza abierta o cerrada
+$('#btn-slide').on('click', function () {
+  $('#panel').slideToggle(400);         // la lista se desliza abierta o cerrada
 });</code></pre>
 <div class="demo"><button id="btn-fade" class="btn btn-cuddle">fadeIn: ver mensaje</button> <button id="btn-slide" class="btn btn-cuddle">slideToggle: ver accesorios</button>
 <div id="caja" class="box">💌 “Un abrazo que puedes personalizar.”</div>
@@ -420,12 +420,12 @@ $(&#x27;#btn-slide&#x27;).on(&#x27;click&#x27;, function () {
 <div class="scroll"><table><thead><tr><th>Diferencia</th><th>Objeto JS</th><th>JSON</th></tr></thead><tbody><tr><td>Claves</td><td>Con o sin comillas</td><td>Siempre con comillas dobles</td></tr><tr><td>Comillas simples</td><td>Permitidas</td><td>No permitidas</td></tr><tr><td>Funciones y comentarios</td><td>Permitidos</td><td>No permitidos</td></tr></tbody></table></div>
 <p>Dos métodos convierten entre ambos: <code>JSON.stringify(objeto)</code> crea la cadena y <code>JSON.parse(cadena)</code> vuelve a crear el objeto.</p>
 <h2>Pruébalo</h2>
-<pre><code>const texto = document.getElementById(&#x27;entrada&#x27;).value;
+<pre><code>const texto = document.getElementById('entrada').value;
 try {
   const objeto = JSON.parse(texto);   // Convierte el texto JSON en un objeto JavaScript.   // cadena JSON -&gt; objeto JS
-  salida.textContent = &#x27;Válido. El peluche se llama &#x27; + objeto.nombre;
+  salida.textContent = 'Válido. El peluche se llama ' + objeto.nombre;
 } catch (error) {
-  salida.textContent = &#x27;JSON inválido: &#x27; + error.message;
+  salida.textContent = 'JSON inválido: ' + error.message;
 }</code></pre>
 <div class="demo"><div style="flex-basis:100%"><label for="entrada"><strong>Edita el JSON y pulsa el botón:</strong></label>
 <textarea id="entrada" class="form-control" rows="8">{
@@ -439,7 +439,7 @@ try {
 <button id="btn-json" class="btn btn-cuddle">Convertir con JSON.parse</button> <span id="salida" aria-live="polite"></span></div>
 <h2>Cómo lo usan las aplicaciones web</h2>
 <p>Cuando una página necesita datos (por ejemplo, el estado de un pedido), el navegador envía una petición a un servidor o a una API. El servidor responde con texto en formato JSON, y el código de la página lo convierte en objetos para mostrarlo en pantalla. También funciona al revés: al enviar el formulario de personalización, la página manda los datos del peluche como JSON.</p>
-<pre><code>fetch(&#x27;https://api.ejemplo.com/pedidos/1&#x27;)
+<pre><code>fetch('https://api.ejemplo.com/pedidos/1')
   .then(respuesta =&gt; respuesta.json())      // lee la respuesta como JSON
   .then(datos =&gt; console.log(datos.peluche.nombre));</code></pre><section class="bib"><h2>Recursos y bibliografía</h2><ul><li><a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON">MDN: JSON</a></li><li><a href="https://www.json.org/json-es.html">JSON.org (especificación)</a></li><li><a href="https://www.w3schools.com/js/js_json_intro.asp">W3Schools: JSON Tutorial</a></li></ul></section></div></section>
 
@@ -499,21 +499,21 @@ try {
 <div id="quiz"></div><div id="resultado" class="result" aria-live="polite" hidden></div>
 <button id="reiniciar" class="btn btn-cuddle" hidden>Intentar de nuevo</button></div></section>
 
-<!-- Formulario de contacto para comunicación con clientes. Cambia TU_CORREO@gmail.com por el correo del negocio. -->
+<!-- Formulario de contacto: el mensaje se envía a /api/contact (función de Vercel) y llega a un canal de Discord. -->
 <section class="vista page" id="contacto"><div class="wrap">
   <div class="page-head"><div><h1>Contacto</h1><p class="lead">¿Tienes una pregunta sobre tu peluche personalizado? Escríbenos y nos pondremos en contacto contigo.</p></div><img class="banner-bear" data-oso="clasico" alt="Osito de CuddleMe" width="144" height="173"></div>
   <div class="row justify-content-center"><div class="col-lg-8">
     <div class="card p-3 p-md-4 shadow-sm" style="background:var(--surface);border:2px solid var(--line);border-radius:18px">
-      <form action="https://formsubmit.co/TU_CORREO@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Nuevo mensaje de cliente - CuddleMe">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
+      <form id="form-contacto" novalidate>
         <div class="mb-3"><label class="form-label" for="cliente-nombre">Nombre completo *</label><input class="form-control" id="cliente-nombre" name="nombre" type="text" autocomplete="name" required maxlength="100" placeholder="Escribe tu nombre"></div>
         <div class="row"><div class="col-md-6 mb-3"><label class="form-label" for="cliente-email">Correo electrónico *</label><input class="form-control" id="cliente-email" name="email" type="email" autocomplete="email" required maxlength="150" placeholder="tucorreo@ejemplo.com"></div>
         <div class="col-md-6 mb-3"><label class="form-label" for="cliente-telefono">Teléfono (opcional)</label><input class="form-control" id="cliente-telefono" name="telefono" type="tel" autocomplete="tel" maxlength="30" placeholder="Tu número de contacto"></div></div>
         <div class="mb-3"><label class="form-label" for="cliente-tema">Motivo de contacto *</label><select class="form-select" id="cliente-tema" name="motivo" required><option value="" selected disabled>Selecciona una opción</option><option>Consulta sobre productos</option><option>Personalización de peluche</option><option>Pedido o entrega</option><option>Precio y disponibilidad</option><option>Queja o sugerencia</option><option>Otro</option></select></div>
-        <div class="mb-3"><label class="form-label" for="cliente-mensaje">Mensaje *</label><textarea class="form-control" id="cliente-mensaje" name="mensaje" rows="5" required minlength="10" maxlength="2000" placeholder="Cuéntanos cómo podemos ayudarte..."></textarea><div class="form-text">Escribe al menos 10 caracteres para explicar tu consulta.</div></div>
-        <button class="btn btn-cuddle" type="submit">Enviar mensaje ✉️</button>
+        <div class="mb-3"><label class="form-label" for="cliente-mensaje">Mensaje *</label><textarea class="form-control" id="cliente-mensaje" name="mensaje" rows="5" required minlength="10" maxlength="1800" placeholder="Cuéntanos cómo podemos ayudarte..."></textarea><div class="form-text">Escribe al menos 10 caracteres para explicar tu consulta.</div></div>
+        <!-- Campo trampa para bots: las personas no lo ven. -->
+        <div style="position:absolute;left:-9999px" aria-hidden="true"><label>No llenar<input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
+        <button id="contacto-enviar" class="btn btn-cuddle" type="submit">Enviar mensaje ✉️</button>
+        <div id="contacto-estado" class="mt-3 fw-bold" role="status" aria-live="polite"></div>
         <p class="mt-3 mb-0 small">Los campos con * son obligatorios. Usaremos tus datos únicamente para responder a tu consulta.</p>
       </form>
     </div>
@@ -723,6 +723,33 @@ dibujar();
       peluche_mensaje: msgIn.value.trim() || '(sin mensaje)'
     };
     Object.keys(v).forEach(function (k) { f.elements[k].value = v[k]; });
+  });
+})();
+
+/* ==================== CONTACTO: ENVÍA EL MENSAJE A DISCORD ==================== */
+// El formulario manda los datos a /api/contact (función de Vercel), que los publica en Discord.
+(function () {
+  const f = document.getElementById('form-contacto');
+  const estadoEnvio = document.getElementById('contacto-estado');
+  const btnEnviar = document.getElementById('contacto-enviar');
+  f.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (!f.checkValidity()) { f.reportValidity(); return; }
+    const datos = {};
+    new FormData(f).forEach(function (v, k) { datos[k] = v; });
+    btnEnviar.disabled = true;
+    estadoEnvio.textContent = L('Enviando...', 'Sending...');
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos)
+    }).then(function (r) {
+      if (!r.ok) throw new Error('fallo');
+      f.reset();
+      estadoEnvio.textContent = L('¡Mensaje enviado! Te responderemos pronto.', 'Message sent! We will reply soon.');
+    }).catch(function () {
+      estadoEnvio.textContent = L('No se pudo enviar. Intenta de nuevo o escríbenos por Instagram.', 'It could not be sent. Try again or message us on Instagram.');
+    }).finally(function () { btnEnviar.disabled = false; });
   });
 })();
 
